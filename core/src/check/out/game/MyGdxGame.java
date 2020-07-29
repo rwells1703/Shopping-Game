@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import check.out.game.example.stellar.SupernovaExample;
+import check.out.game.maingame.stellar.SupernovaShop;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.Supernova;
 
@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
-		Supernova supernova=new SupernovaExample();
+		Supernova supernova=new SupernovaShop();
 		nebula=supernova.generateNebula();
 		supernova.dispose();
 	}
@@ -27,9 +27,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 		nebula.update(Gdx.graphics.getDeltaTime());
 
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+//		batch.begin();
+//		batch.draw(img, 0, 0);
+//		batch.end();
 	}
 	
 	@Override
