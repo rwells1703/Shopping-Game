@@ -2,7 +2,6 @@ package check.out.game.maingame.fermions;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.nonfermions.Controller;
-import check.out.game.maingame.nonfermions.ControllerSimple;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -35,5 +34,5 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         return ConstShop.FB_SHOPPER;
     }
 
-    public Controller controller=new ControllerSimple();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
+    public Controller controller=new Controller();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
 }

@@ -76,10 +76,11 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     }
     protected void addColliders(NebulaShop nebulaImplemented){
     }
-    protected void addFermions(NebulaShop nebulaImplemented){
-        FermionList list=nebulaImplemented.fermions();
+    protected void addFermions(NebulaShop nebulaImplemented) {
+        FermionList list = nebulaImplemented.fermions();
 
-        nebulaImplemented.player=list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(0,0)));
+        nebulaImplemented.player = list
+            .addWithPointer(() -> new Shopper(nebulaImplemented.world(), new Vector2(0, 0)));
     }
 
     @Override
