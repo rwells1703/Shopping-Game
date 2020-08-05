@@ -6,7 +6,7 @@ import check.out.game.maingame.effects.ControllerForcesOnShoppers;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
 import check.out.game.maingame.fermions.Collectible;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -88,7 +88,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         FermionList list = nebulaImplemented.fermions();
 
         nebulaImplemented.player = list
-            .addWithPointer(() -> new Shopper(nebulaImplemented.world(), new Vector2(0, 0)));
+            .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(0, 0)));
 
         //###Begin add collectibles.
         for (int i = 0; i < 10; i++) {
