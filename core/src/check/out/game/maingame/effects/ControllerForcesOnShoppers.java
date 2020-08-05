@@ -2,6 +2,7 @@ package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Shopper;
+import com.badlogic.gdx.Gdx;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.effect.Effect;
 import fernebon.core.util.LifeCycleImplementation;
