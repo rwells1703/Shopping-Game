@@ -11,8 +11,10 @@ public class ConstShop {
 
     public static int //Artist priorities - called in ascending order.
             AP_SCREEN_CLEAR     =0x1000,
-            AP_DEBUG_DRAW       =0x1800;
+            AP_PLAYER_DRAW      =0x2600,
+            AP_DEBUG_DRAW       =0xFFFF;
 
     public static int //Fermion set bits - use bitwise ORs to be in a set union.
-            FB_SHOPPER          =1<<0;
+            FB_SHOPPER          =1<<0,
+            FB_TERRAIN          =1<<1;
 }
