@@ -5,6 +5,7 @@ public class ConstShop {
             EP_AI_KEYBOARD      =0x0010_0100,
 
             EP_MOVE_SHOPPERS    =0x0030_0100,
+            EP_LAUNCH_PROJECTILE=0x0040_0100,
             EP_PHYSICS_STEP     =0x0050_0100,
             EP_SPOTLIGHT        =0x0070_0100,
             EP_DRAW             =0x0070_0200;
@@ -14,5 +15,6 @@ public class ConstShop {
             AP_DEBUG_DRAW       =0x1800;
 
     public static int //Fermion set bits - use bitwise ORs to be in a set union.
-            FB_SHOPPER          =1<<0;
+            FB_SHOPPER          =1<<0,
+            FB_PROJECTILE       =2<<0;
 }

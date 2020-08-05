@@ -2,7 +2,9 @@ package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.effects.ControllerForcesOnShoppers;
+import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
+import check.out.game.maingame.fermions.Projectile;
 import check.out.game.maingame.fermions.Shopper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -44,6 +46,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
 
         list.add(KeyboardMovesPlayer::new);
         list.add(ControllerForcesOnShoppers::new);
+        list.add(LaunchProjectile::new);
         list.add(() -> new StepperOfWorld() {
             @Override
             public int getPriority() {
@@ -80,10 +83,10 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         FermionList list=nebulaImplemented.fermions();
 
         nebulaImplemented.player=list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(0,0)));
+        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
     }
 
     @Override
     public void dispose() {
-
     }
 }

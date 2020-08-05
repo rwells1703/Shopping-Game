@@ -18,6 +18,7 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         bodyDef.linearDamping=2;    //This is to slow the body, but probably isn't realistic friction (I think it is exponential decay of velocity).
 
         body=world.createBody(bodyDef);//Create body.
+        body.setUserData(this);
 
         CircleShape shape=new CircleShape();//Create fixture shape.
         shape.setRadius(0.25f);
