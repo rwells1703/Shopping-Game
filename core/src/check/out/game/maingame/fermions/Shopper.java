@@ -24,7 +24,8 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         FixtureDef fixtureDef=new FixtureDef();//Define fixture.
         fixtureDef.shape=shape;
 
-        body.createFixture(fixtureDef);//Create the fixture.
+        body.createFixture(fixtureDef)//Create the fixture.
+                .setUserData(this);//And set the user data.
 
         shape.dispose();//This MUST be called when the shape is no longer needed.
     }

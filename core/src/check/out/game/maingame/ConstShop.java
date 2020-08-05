@@ -13,6 +13,10 @@ public class ConstShop {
             AP_SCREEN_CLEAR     =0x1000,
             AP_DEBUG_DRAW       =0x1800;
 
+    public static int
+            CP_COLLECT_ITEMS    =0x00_00_00_20;
+
     public static int //Fermion set bits - use bitwise ORs to be in a set union.
-            FB_SHOPPER          =1<<0;
+            FB_SHOPPER          =1<<0,
+            FB_COLLECTIBLE      =1<<3;
 }

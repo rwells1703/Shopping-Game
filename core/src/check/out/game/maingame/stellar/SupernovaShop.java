@@ -1,13 +1,18 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.colliders.CollectCollectibles;
 import check.out.game.maingame.effects.ControllerForcesOnShoppers;
+import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
+import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Shopper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import fernebon.b2d.base.collider.ColliderList;
 import fernebon.b2d.util.artists.DebugRenderer;
 import fernebon.b2d.util.effects.StepperOfWorld;
 import fernebon.core.base.artist.ArtistList;
@@ -50,7 +55,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 return ConstShop.EP_PHYSICS_STEP;
             }
         });
-//        list.add(() -> new Spotlight(camera,MAP_WIDTH,MAP_HEIGHT));
+        list.add(() -> new Spotlight(camera,MAP_WIDTH,MAP_HEIGHT));
         list.add(() -> new DrawCaller() {
             @Override
             public int getPriority() {
@@ -75,12 +80,21 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         });
     }
     protected void addColliders(NebulaShop nebulaImplemented){
+        ColliderList list=nebulaImplemented.colliders();
+
+        list.add(CollectCollectibles::new);
     }
     protected void addFermions(NebulaShop nebulaImplemented) {
         FermionList list = nebulaImplemented.fermions();
 
         nebulaImplemented.player = list
             .addWithPointer(() -> new Shopper(nebulaImplemented.world(), new Vector2(0, 0)));
+
+        //###Begin add collectibles.
+        for (int i = 0; i < 10; i++) {
+            list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT))));
+        }
+        //###End add collectibles.
     }
 
     @Override
