@@ -2,11 +2,11 @@ package check.out.game.maingame.fermions;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.nonfermions.Controller;
-import check.out.game.maingame.nonfermions.ControllerSimple;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
@@ -20,8 +20,8 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         body=world.createBody(bodyDef);//Create body.
         body.setUserData(this);
 
-        CircleShape shape=new CircleShape();//Create fixture shape.
-        shape.setRadius(0.25f);
+        PolygonShape shape=new PolygonShape();//Create fixture shape.
+        shape.set(new float[]{-0.4f, -0.475f, 0.4f, -0.475f, 0.25f, 0.710f, -0.25f, 0.710f});
 
         FixtureDef fixtureDef=new FixtureDef();//Define fixture.
         fixtureDef.shape=shape;
@@ -36,5 +36,5 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         return ConstShop.FB_SHOPPER;
     }
 
-    public Controller controller=new ControllerSimple();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
+    public Controller controller=new Controller();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
 }

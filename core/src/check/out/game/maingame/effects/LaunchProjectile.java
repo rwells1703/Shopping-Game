@@ -22,7 +22,6 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime){
         Shopper player = (Shopper)nebula.fermions().particles(ConstShop.FB_SHOPPER).iterator().next();
-        player.getBody().setAngularVelocity((float)Math.PI);
 
         Vector2 playerPos = player.getBody().getPosition();
         float playerAngle = player.getBody().getAngle();

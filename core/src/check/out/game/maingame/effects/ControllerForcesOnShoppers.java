@@ -18,7 +18,7 @@ public class ControllerForcesOnShoppers extends LifeCycleImplementation implemen
         //For each shopper, apply the force requested by the shopper's controller.
         //This must be done on each tick, as forces are reset to none after each physics step.
         for(Shopper shopper:nebula.fermions().<Shopper>particles(ConstShop.FB_SHOPPER)){
-            shopper.getBody().applyForceToCenter(shopper.controller.getDesiredForce(),true);
+            shopper.getBody().applyForceToCenter(shopper.controller.desiredForce,true);
         }
     }
 }
