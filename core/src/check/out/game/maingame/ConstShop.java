@@ -12,6 +12,7 @@ public class ConstShop {
 
     public static int //Artist priorities - called in ascending order.
             AP_SCREEN_CLEAR     =0x1000,
+            AP_SHELVING_DRAW    =0x2000,
             AP_PLAYER_DRAW      =0x2600,
             AP_DEBUG_DRAW       =0xFFFF;
 
@@ -30,5 +31,7 @@ public class ConstShop {
             SHOPPERBRAKEFACTOR      = 170f,
             SHOPPERLINEARDAMPING    = 2,
             SHOPPERANGULARDAMPING   = 10f,
-            SHOPPEREMPTYDENISTY     = 3f;
+            SHOPPEREMPTYDENISTY     = 1.4f;
+
+    public static final float SHELF_UNIT_SIZE=1f;
 }
