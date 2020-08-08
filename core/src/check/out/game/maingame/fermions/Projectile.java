@@ -7,13 +7,14 @@ import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
 public class Projectile extends BodiedFermionPartial {
     public int type;
-    public boolean flying = false;
-    public float timeOfFlight = 0;
+//    public boolean flying = false;
+//    public float timeOfFlight = 0;
 
-    public Projectile(World world, Vector2 position){
+    public Projectile(World world, Vector2 position, Vector2 velocity){
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);
+        bodyDef.linearVelocity.set(velocity);
         bodyDef.linearDamping = 2;
 
         body=world.createBody(bodyDef);

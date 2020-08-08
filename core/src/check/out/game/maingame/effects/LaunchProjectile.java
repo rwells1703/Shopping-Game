@@ -28,22 +28,13 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
         float playerAngle = player.getBody().getAngle();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            list.add(() -> new Projectile(((NebulaShop)nebula).world(), new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)))));
-            Projectile projectile = list.<Projectile>particles(ConstShop.FB_PROJECTILE).iterator().next();
-            projectile.getBody().setLinearVelocity(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
-            projectile.flying = true;
+            Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
+            Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
+            Projectile projectile = new Projectile(((NebulaShop)nebula).world(), projectilePos, projectileVel);
+            list.add(() -> projectile);
+
             player.cargo.removeOneOf(projectile.type); //projectile type, not sure
         }
 
-        for(Projectile projectile:nebula.fermions().<Projectile>particles(ConstShop.FB_PROJECTILE)) {
-            if (projectile.flying) {
-                projectile.timeOfFlight += deltaTime;
-            }
-            if (projectile.timeOfFlight >= 0.5) {
-                projectile.flying = false;
-                projectile.timeOfFlight = 0;
-                projectile.getBody().setLinearVelocity(new Vector2(0, 0));
-            }
-        }
     }
 }
