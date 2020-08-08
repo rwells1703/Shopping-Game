@@ -100,7 +100,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         }
         //###End add collectibles.
 
-        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
+//        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
         list.add(()->new TerrainStatic(nebulaImplemented.world(), new Vector2(4,4), 1));
         list.add(()->new TerrainDynamic(nebulaImplemented.world(), new Vector2(2,2), 1));
     }
