@@ -1,6 +1,7 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.artists.MapDrawer;
 import check.out.game.maingame.artists.PlayerDrawer;
 import check.out.game.maingame.colliders.CollectCollectibles;
 import check.out.game.maingame.effects.ControllerForcesOnShoppers;
@@ -11,6 +12,8 @@ import check.out.game.maingame.fermions.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.b2d.base.collider.ColliderList;
@@ -24,8 +27,8 @@ import fernebon.core.util.effects.DrawCaller;
 import fernebon.gdx.util.artists.ScreenClearer;
 
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
-    private int MAP_WIDTH =20,
-                MAP_HEIGHT=15;
+    private float   MAP_WIDTH =20,
+                    MAP_HEIGHT=15;
     @Override
     protected NebulaShop getNewNebula() {
         return new NebulaShop();
@@ -34,14 +37,20 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     @Override
     protected void setupNebula(NebulaShop nebulaImplemented) {
         final float VIEWPORT_HEIGHT=6;//The height of the viewed part of the nebula.
+
+        TiledMap map=new TmxMapLoader().load("maps/map1.tmx");
+        MapReader reader=new MapReader(nebulaImplemented,map);
+        MAP_WIDTH=reader.getMapWidth();
+        MAP_HEIGHT=reader.getMapHeight();
+
         //Setup the camera.
         Camera camera=new OrthographicCamera(((float) Gdx.graphics.getWidth()/(float) Gdx.graphics.getHeight())*VIEWPORT_HEIGHT, VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth/2f,camera.viewportHeight/2f,0);
         camera.update();
 
-        addFermions(nebulaImplemented);
+        addFermions(nebulaImplemented,reader);
         addEffects(nebulaImplemented,camera);
-        addArtists(nebulaImplemented,camera);
+        addArtists(nebulaImplemented,camera,map);
         addColliders(nebulaImplemented);
     }
 
@@ -65,7 +74,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
             }
         });
     }
-    protected void addArtists(NebulaShop nebulaImplemented, Camera camera){
+    protected void addArtists(NebulaShop nebulaImplemented, Camera camera,TiledMap map){
         ArtistList list=nebulaImplemented.artists();
 
         list.add(() -> new ScreenClearer() {
@@ -80,6 +89,12 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 return ConstShop.AP_DEBUG_DRAW;
             }
         });
+        list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f) {
+            @Override
+            public int getPriority() {
+                return ConstShop.AP_SHELVING_DRAW;
+            }
+        });
 
         list.add(() -> new PlayerDrawer(camera));
     }
@@ -88,11 +103,11 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
 
         list.add(CollectCollectibles::new);
     }
-    protected void addFermions(NebulaShop nebulaImplemented) {
+    protected void addFermions(NebulaShop nebulaImplemented,MapReader reader) {
         FermionList list = nebulaImplemented.fermions();
 
         nebulaImplemented.player = list
-            .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(0, 0)));
+            .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(2, 2)));
 
         //###Begin add collectibles.
         for (int i = 0; i < 10; i++) {
@@ -101,8 +116,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         //###End add collectibles.
 
         list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
-        list.add(()->new TerrainStatic(nebulaImplemented.world(), new Vector2(4,4), 1));
-        list.add(()->new TerrainDynamic(nebulaImplemented.world(), new Vector2(2,2), 1));
+
+        reader.readInShelving();
     }
 
     @Override

@@ -1,33 +1,25 @@
 package check.out.game.maingame.fermions;
+
 import check.out.game.maingame.ConstShop;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 import fernebon.core.base.fermion.Fermion;
-import fernebon.core.util.LifeCycleImplementation;
 
 public abstract class Terrain extends BodiedFermionPartial implements Fermion {
-  public Terrain(World world, Vector2 position, float size, BodyType bodyType, int linearDamping) {
+  /**
+   * @param shape This is automatically disposed of.
+   */
+  protected void setupBody(World world, float x, float y, Shape shape, BodyType bodyType, int linearDamping){
     BodyDef bodyDef = new BodyDef();
     bodyDef.type = bodyType;
-    bodyDef.position.set(position);
+    bodyDef.position.set(x,y);
     bodyDef.linearDamping = linearDamping;
 
     body = world.createBody(bodyDef);
-
-    PolygonShape shape = new PolygonShape();
-
-    shape.set(new float[]{
-        -size/2,         -size/2,
-        -size/2,         size/2,
-        size/2,         -size/2,
-        size/2,         size/2,
-    });
 
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
