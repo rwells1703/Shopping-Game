@@ -8,4 +8,5 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Controller {
     public Vector2 desiredForce=new Vector2();
+    public float desiredTorque = 0f;
 }

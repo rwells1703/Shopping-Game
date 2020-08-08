@@ -14,8 +14,8 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
         BodyDef bodyDef=new BodyDef();//Define body properties;
         bodyDef.type= BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);
-        bodyDef.linearDamping=2;    //This is to slow the body, but probably isn't realistic friction (I think it is exponential decay of velocity).
-
+        bodyDef.linearDamping= ConstShop.SHOPPERLINEARDAMPING; //This is to slow the body, but probably isn't realistic friction (I think it is exponential decay of velocity).
+        bodyDef.angularDamping = ConstShop.SHOPPERANGULARDAMPING;
         body=world.createBody(bodyDef);//Create body.
 
         CircleShape shape=new CircleShape();//Create fixture shape.
@@ -23,6 +23,7 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
 
         FixtureDef fixtureDef=new FixtureDef();//Define fixture.
         fixtureDef.shape=shape;
+        fixtureDef.density = ConstShop.SHOPPEREMPTYDENISTY;
 
         body.createFixture(fixtureDef);//Create the fixture.
 

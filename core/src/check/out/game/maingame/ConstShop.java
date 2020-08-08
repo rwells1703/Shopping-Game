@@ -15,4 +15,12 @@ public class ConstShop {
 
     public static int //Fermion set bits - use bitwise ORs to be in a set union.
             FB_SHOPPER          =1<<0;
+
+    public static float //Movement Constant.
+            SHOPPERTORQUEFACTOR     = 3f,
+            SHOPPERTHRUSTFACTOR     = 300f,
+            SHOPPERBRAKEFACTOR      = 170f,
+            SHOPPERLINEARDAMPING    = 2,
+            SHOPPERANGULARDAMPING   = 10f,
+            SHOPPEREMPTYDENISTY     = 30f;
 }

@@ -1,0 +1,17 @@
+fernebon.b2d.base
+fernebon.b2d.base.collider
+fernebon.b2d.impl
+fernebon.b2d.util.artists
+fernebon.b2d.util.effects
+fernebon.b2d.util.fermions
+fernebon.b2d.util.prehensile
+fernebon.core.base
+fernebon.core.base.artist
+fernebon.core.base.boson
+fernebon.core.base.effect
+fernebon.core.base.fermion
+fernebon.core.base.particle
+fernebon.core.impl
+fernebon.core.util
+fernebon.core.util.effects
+fernebon.gdx.util.artists

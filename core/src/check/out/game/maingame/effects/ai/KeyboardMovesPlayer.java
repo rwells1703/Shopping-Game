@@ -11,6 +11,7 @@ import fernebon.core.base.effect.Effect;
 import fernebon.core.util.LifeCycleImplementation;
 
 public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effect {
+
     @Override
     public int getPriority() {
         return ConstShop.EP_AI_KEYBOARD;
@@ -18,11 +19,18 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
-        //Set the player's desired force based on the wasd keys - this method doesn't actually apply said force.
+        //Set the player's desired force based on the ws keys - this method doesn't actually apply said force.
         Shopper player=((NebulaShop)nebula).player.getPointeeCast();
         Vector2 desiredForce=player.controller.desiredForce;
-        desiredForce.x=(Gdx.input.isKeyPressed(Input.Keys.D)?1:0) + (Gdx.input.isKeyPressed(Input.Keys.A)?-1:0);
-        desiredForce.y=(Gdx.input.isKeyPressed(Input.Keys.W)?1:0) + (Gdx.input.isKeyPressed(Input.Keys.S)?-1:0);
-        desiredForce.setLength2(100);
+        float angle = player.getBody().getAngle();
+        boolean forward = Gdx.input.isKeyPressed(Input.Keys.W);
+        desiredForce.x = 0;
+        desiredForce.y = forward?1:-1;
+        desiredForce.setLength2((forward?1:0)*ConstShop.SHOPPERTHRUSTFACTOR
+                - (Gdx.input.isKeyPressed(Input.Keys.S)?-1:0)*ConstShop.SHOPPERBRAKEFACTOR);
+        desiredForce.rotateRad(-angle);
+
+        player.controller.desiredTorque = ((Gdx.input.isKeyPressed(Input.Keys.D)?1:0)
+                - (Gdx.input.isKeyPressed(Input.Keys.A)?1:0))*ConstShop.SHOPPERTORQUEFACTOR;
     }
 }
