@@ -115,8 +115,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         }
         //###End add collectibles.
 
-        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
-
+//        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
         reader.readInShelving();
     }
 

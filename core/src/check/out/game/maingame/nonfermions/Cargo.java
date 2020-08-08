@@ -7,4 +7,7 @@ public class Cargo {
     public void addOneOf(int type){
         quantity.put(type,quantity.get(type,0)+1);
     }
+    public void removeOneOf(int type){
+        quantity.remove(type, quantity.get(type, 1)-1);
+    }
 }
