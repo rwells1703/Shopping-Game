@@ -3,17 +3,14 @@ package check.out.game.maingame.effects;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Projectile;
-import check.out.game.maingame.fermions.Shopper;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.org.apache.bcel.internal.Const;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.effect.Effect;
 import fernebon.core.base.fermion.FermionList;
 import fernebon.core.util.LifeCycleImplementation;
-import org.w3c.dom.ls.LSOutput;
 
 public class LaunchProjectile extends LifeCycleImplementation implements Effect {
     @Override
@@ -31,19 +28,11 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
         float playerAngle = player.getBody().getAngle();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            try{
-                Projectile oldProjectile = list.<Projectile>particles(ConstShop.FB_PROJECTILE).iterator().next();
-                list.remove(oldProjectile);
-            }catch (Exception e){
-                //nothing
-            }
-
             list.add(() -> new Projectile(((NebulaShop)nebula).world(), new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)))));
             Projectile projectile = list.<Projectile>particles(ConstShop.FB_PROJECTILE).iterator().next();
             projectile.getBody().setLinearVelocity(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
             projectile.flying = true;
-            player.cargo.addOneOf(projectile.type); //projectile type, not sure
-
+            player.cargo.removeOneOf(projectile.type); //projectile type, not sure
         }
 
         for(Projectile projectile:nebula.fermions().<Projectile>particles(ConstShop.FB_PROJECTILE)) {
