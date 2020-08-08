@@ -2,10 +2,7 @@ package check.out.game.maingame.fermions;
 
 import check.out.game.maingame.ConstShop;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
 public class Projectile extends BodiedFermionPartial {
@@ -17,8 +14,10 @@ public class Projectile extends BodiedFermionPartial {
 
         body=world.createBody(bodyDef);
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(0.2f);
+//        CircleShape shape = new CircleShape();
+//        shape.setRadius(0.2f);
+        PolygonShape shape=new PolygonShape();//Create fixture shape.
+        shape.set(new float[]{-0.4f, -0.475f, 0.4f, -0.475f, 0.25f, 0.710f, -0.25f, 0.710f});
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
