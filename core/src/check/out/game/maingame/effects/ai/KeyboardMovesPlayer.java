@@ -28,9 +28,9 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
         desiredForce.y = forward?1:-1;
         desiredForce.setLength2((forward?1:0)*ConstShop.SHOPPERTHRUSTFACTOR
                 - (Gdx.input.isKeyPressed(Input.Keys.S)?-1:0)*ConstShop.SHOPPERBRAKEFACTOR);
-        desiredForce.rotateRad(-angle);
+        desiredForce.rotateRad(angle);
 
-        player.controller.desiredTorque = ((Gdx.input.isKeyPressed(Input.Keys.D)?1:0)
+        player.controller.desiredTorque = -((Gdx.input.isKeyPressed(Input.Keys.D)?1:0)
                 - (Gdx.input.isKeyPressed(Input.Keys.A)?1:0))*ConstShop.SHOPPERTORQUEFACTOR;
     }
 }
