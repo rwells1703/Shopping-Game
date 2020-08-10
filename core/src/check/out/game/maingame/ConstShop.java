@@ -41,17 +41,7 @@ public class ConstShop {
 
     public static final float SHELF_UNIT_SIZE=1f;
 
-    public static final String[] COLLECTIBLE_TEXTURE_PATHS = {
-            "bananas/banana-full.png",
-            "beans/beans-full.png"
-    };
-
-    public static final String[] PROJECTILE_TEXTURE_PATHS = {
-            "bananas/banana-peel.png",
-            "beans/beans-spilled.png"
-    };
-
     public static final int NUM_PROJECTILE_TYPES = 2;
-    public static final int NUM_COLLECTIBLE_TYPES = 2;
+    public static final int NUM_COLLECTIBLE_TYPES = 3;
 
 }
