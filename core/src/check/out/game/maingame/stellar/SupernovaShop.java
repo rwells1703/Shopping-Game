@@ -8,6 +8,7 @@ import check.out.game.maingame.effects.ControllerForcesOnShoppers;
 import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
+import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
 import check.out.game.maingame.fermions.*;
 import check.out.game.maingame.fermions.flooring.IceRing;
 import com.badlogic.gdx.Gdx;
@@ -139,6 +140,16 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         //###End add ice.
 
         reader.readInShelving();
+
+        //###Begin add obnoxious.
+        EffectList effectList=nebulaImplemented.effects();
+        for(int i=1;i<=5;i++){
+            int finalI = i;
+            effectList.add(() -> new ObnoxiousRamsPlayer(
+                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(finalI *4, finalI *4)))
+            ));
+        }
+        //###End add obnoxious.
     }
 
     @Override
