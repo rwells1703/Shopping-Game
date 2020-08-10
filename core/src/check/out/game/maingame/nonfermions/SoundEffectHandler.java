@@ -3,6 +3,8 @@ package check.out.game.maingame.nonfermions;
 import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,17 +18,32 @@ public class SoundEffectHandler {
     }
 
     protected void loadSoundFiles(){
-        String id = "ding";
-        soundSet.put(id, Gdx.audio.newSound(Gdx.files.internal("sounds/"+id+".wav")));
+        FileHandle file = Gdx.files.internal("sounds/fileNames.txt");
+        String text = file.readString();
+        String[] fileNames = text.split("\n");
+        
+        for(String id:fileNames) {
+            try {
+                id = id.substring(0,id.length()-1);
+                soundSet.put(id, Gdx.audio.newSound(Gdx.files.internal("sounds/" + id + ".wav")));
+            } catch (GdxRuntimeException e) {
+                e.printStackTrace();
+                soundSet.put(id, null);
+            }
+        }
     }
 
     public void playSound(String id){
-        soundSet.get(id).play();
+        if(soundSet.get(id)!=null) {
+            soundSet.get(id).play();
+        }
     }
 
     public void dispose(){
         for(Map.Entry<String, Sound> entry: soundSet.entrySet()){
-            entry.getValue().dispose();
+            if(entry.getValue()!=null) {
+                entry.getValue().dispose();
+            }
         }
     }
 }
