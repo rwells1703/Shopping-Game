@@ -9,6 +9,7 @@ import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
 import check.out.game.maingame.fermions.*;
+import check.out.game.maingame.fermions.flooring.IceRing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import fernebon.b2d.base.collider.ColliderList;
 import fernebon.b2d.util.artists.DebugRenderer;
 import fernebon.b2d.util.effects.StepperOfWorld;
+import fernebon.b2d.util.prehensile.PrehensileCollisionManager;
 import fernebon.core.base.artist.ArtistList;
 import fernebon.core.base.effect.EffectList;
 import fernebon.core.base.fermion.FermionList;
@@ -26,9 +28,13 @@ import fernebon.core.impl.SupernovaPartial;
 import fernebon.core.util.effects.DrawCaller;
 import fernebon.gdx.util.artists.ScreenClearer;
 
+import java.util.Random;
+
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     private float   MAP_WIDTH =20,
                     MAP_HEIGHT=15;
+    private boolean debug = false;
+
     @Override
     protected NebulaShop getNewNebula() {
         return new NebulaShop();
@@ -83,12 +89,14 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 return ConstShop.AP_SCREEN_CLEAR;
             }
         });
-        list.add(() -> new DebugRenderer(camera,nebulaImplemented.world()) {
+        if (debug) {
+          list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
             @Override
             public int getPriority() {
-                return ConstShop.AP_DEBUG_DRAW;
+              return ConstShop.AP_DEBUG_DRAW;
             }
-        });
+          });
+        }
         list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f) {
             @Override
             public int getPriority() {
@@ -102,6 +110,12 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         ColliderList list=nebulaImplemented.colliders();
 
         list.add(CollectCollectibles::new);
+        list.add(() -> new PrehensileCollisionManager() {
+            @Override
+            public int getPriority() {
+                return ConstShop.CP_ON_FLOORING;
+            }
+        });
     }
     protected void addFermions(NebulaShop nebulaImplemented,MapReader reader) {
         FermionList list = nebulaImplemented.fermions();
@@ -109,13 +123,21 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         nebulaImplemented.player = list
             .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(2, 2)));
 
+        Random rnd = new Random(System.currentTimeMillis());
+
         //###Begin add collectibles.
         for (int i = 0; i < 10; i++) {
-            list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT))));
+            int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
+            System.out.println(type+1);
+            list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT)), type));
         }
         //###End add collectibles.
 
-//        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
+
+        //###Begin add ice.
+        list.add(() -> new IceRing(nebulaImplemented,new Vector2(4,16)));
+        //###End add ice.
+
         reader.readInShelving();
     }
 

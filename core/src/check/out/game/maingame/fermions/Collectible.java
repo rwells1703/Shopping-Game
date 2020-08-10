@@ -7,8 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 public class Collectible extends SensorFermionPartial {
     public int type;
 
-    public Collectible(NebulaShop nebula, Vector2 position) {
+    public Collectible(NebulaShop nebula, Vector2 position, int type) {
         super(nebula, position);
+        this.type = type;
     }
 
     @Override

@@ -12,6 +12,8 @@ import fernebon.core.util.LifeCycleImplementation;
 
 public abstract class SensorFermionPartial extends LifeCycleImplementation implements Fermion {
     protected Fixture sensor;
+    private Vector2 position;
+
     public Fixture getSensor(){return sensor;}
 
     /**
@@ -25,6 +27,8 @@ public abstract class SensorFermionPartial extends LifeCycleImplementation imple
     }
 
     public SensorFermionPartial(NebulaShop nebula, Vector2 position){
+        this.position = position;
+
         Shape shape=getShape(position);
 
         FixtureDef fixtureDef=new FixtureDef();
@@ -39,5 +43,9 @@ public abstract class SensorFermionPartial extends LifeCycleImplementation imple
     @Override
     public void dispose(Nebula nebula) {
         ((NebulaShop)nebula).bodyForSensors.destroyFixture(sensor);
+    }
+
+    public Vector2 getPosition(){
+        return this.position;
     }
 }
