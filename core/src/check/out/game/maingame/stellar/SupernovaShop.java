@@ -29,6 +29,8 @@ import fernebon.gdx.util.artists.ScreenClearer;
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     private float   MAP_WIDTH =20,
                     MAP_HEIGHT=15;
+    private boolean debug = false;
+
     @Override
     protected NebulaShop getNewNebula() {
         return new NebulaShop();
@@ -83,12 +85,14 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 return ConstShop.AP_SCREEN_CLEAR;
             }
         });
-        list.add(() -> new DebugRenderer(camera,nebulaImplemented.world()) {
+        if (debug) {
+          list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
             @Override
             public int getPriority() {
-                return ConstShop.AP_DEBUG_DRAW;
+              return ConstShop.AP_DEBUG_DRAW;
             }
-        });
+          });
+        }
         list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f) {
             @Override
             public int getPriority() {
