@@ -1,6 +1,7 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.nonfermions.SoundEffectHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,6 +10,9 @@ import fernebon.core.base.Pointer;
 import fernebon.core.base.fermion.Fermion;
 
 public class NebulaShop extends NebulaB2DEasyOverride {
+
+    public SoundEffectHandler soundEffectHandler;
+
     @Override
     public void create() {
         super.create();
@@ -18,6 +22,8 @@ public class NebulaShop extends NebulaB2DEasyOverride {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0,0);
         bodyForSensors=world.createBody(bodyDef);
+
+        soundEffectHandler = new SoundEffectHandler();
     }
 
     @Override
@@ -31,6 +37,12 @@ public class NebulaShop extends NebulaB2DEasyOverride {
                 ConstShop.FB_SHOPPER,
                 ConstShop.FB_COLLECTIBLE,
         };
+    }
+
+    @Override
+    public void dispose(){
+        soundEffectHandler.dispose();
+        super.dispose();
     }
 
     public Pointer<Fermion> player;

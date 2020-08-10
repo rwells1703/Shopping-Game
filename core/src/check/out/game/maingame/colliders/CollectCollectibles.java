@@ -3,6 +3,7 @@ package check.out.game.maingame.colliders;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.physics.box2d.Contact;
 import fernebon.b2d.base.collider.Collider;
 import fernebon.core.base.Nebula;
@@ -34,5 +35,6 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
     private void collect(Nebula nebula, Player player, Collectible collectible){
         player.cargo.addOneOf(collectible.type);
         nebula.fermions().remove(collectible);
+        ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
     }
 }

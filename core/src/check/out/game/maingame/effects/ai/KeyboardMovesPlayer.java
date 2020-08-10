@@ -26,8 +26,8 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
         boolean forward = Gdx.input.isKeyPressed(Input.Keys.W);
         desiredForce.x = 0;
         desiredForce.y = forward?1:-1;
-        desiredForce.setLength2((forward?1:0)*ConstShop.SHOPPERTHRUSTFACTOR
-                - (Gdx.input.isKeyPressed(Input.Keys.S)?-1:0)*ConstShop.SHOPPERBRAKEFACTOR);
+        desiredForce.setLength2(Math.abs((forward?1:0)*ConstShop.SHOPPERTHRUSTFACTOR
+                + (Gdx.input.isKeyPressed(Input.Keys.S)?-1:0)*ConstShop.SHOPPERBRAKEFACTOR));
         desiredForce.rotateRad(angle);
 
         player.controller.desiredTorque = -((Gdx.input.isKeyPressed(Input.Keys.D)?1:0)
