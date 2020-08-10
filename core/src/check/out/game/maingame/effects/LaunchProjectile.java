@@ -7,6 +7,7 @@ import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.IntIntMap;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.effect.Effect;
 import fernebon.core.base.fermion.FermionList;
@@ -31,18 +32,24 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)){
             this.type = 0;
         }else if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)){
-            this.type = 1;
+            this.type=1;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)){
+            this.type = 2;
         }
 
+//        System.out.println(player.cargo.quantity.get(0, 0));
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
-            Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
-            Projectile projectile = new Projectile(((NebulaShop)nebula).world(), projectilePos, projectileVel, this.type);
-            list.add(() -> projectile);
+            if(player.cargo.quantity.get(this.type, 0)>0){
+                Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
+                Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
+                Projectile projectile = new Projectile(((NebulaShop)nebula).world(), projectilePos, projectileVel, this.type);
+                list.add(() -> projectile);
 
 
-            player.cargo.removeOneOf(projectile.type);
+                player.cargo.removeOneOf(projectile.type);
+            }
+
         }
 
     }

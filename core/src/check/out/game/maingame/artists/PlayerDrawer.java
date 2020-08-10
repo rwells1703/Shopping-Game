@@ -28,16 +28,19 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
 
     entityTexture = new Texture(Gdx.files.internal("entityTexture.png"));
     playerTextureRegion=new TextureRegion(entityTexture, 0, 0 , 92, 128);
+
     collectibleTextureRegions = new TextureRegion[]{
             new TextureRegion(entityTexture, 92, 0, 64, 64),
             new TextureRegion(entityTexture, 156, 0, 64, 64),
             new TextureRegion(entityTexture, 220, 0, 64, 64)
     };
-    projectileTextureRegions = new TextureRegion[]{
-            new TextureRegion(entityTexture, 92, 0, 64, 64),
-            new TextureRegion(entityTexture, 156, 64, 64, 64)
-    };
 
+    projectileTextureRegions = new TextureRegion[]{
+            new TextureRegion(entityTexture, 92, 64, 64, 64),
+            new TextureRegion(entityTexture, 156, 64, 64, 64),
+            new TextureRegion(entityTexture, 220, 64, 64, 64)
+
+    };
   }
 
   @Override
