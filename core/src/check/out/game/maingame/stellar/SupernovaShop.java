@@ -9,6 +9,7 @@ import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
 import check.out.game.maingame.fermions.*;
+import check.out.game.maingame.fermions.flooring.IceRing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import fernebon.b2d.base.collider.ColliderList;
 import fernebon.b2d.util.artists.DebugRenderer;
 import fernebon.b2d.util.effects.StepperOfWorld;
+import fernebon.b2d.util.prehensile.PrehensileCollisionManager;
 import fernebon.core.base.artist.ArtistList;
 import fernebon.core.base.effect.EffectList;
 import fernebon.core.base.fermion.FermionList;
@@ -106,6 +108,12 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         ColliderList list=nebulaImplemented.colliders();
 
         list.add(CollectCollectibles::new);
+        list.add(() -> new PrehensileCollisionManager() {
+            @Override
+            public int getPriority() {
+                return ConstShop.CP_ON_FLOORING;
+            }
+        });
     }
     protected void addFermions(NebulaShop nebulaImplemented,MapReader reader) {
         FermionList list = nebulaImplemented.fermions();
@@ -118,6 +126,10 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
             list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT))));
         }
         //###End add collectibles.
+
+        //###Begin add ice.
+        list.add(() -> new IceRing(nebulaImplemented,new Vector2(4,16)));
+        //###End add ice.
 
 //        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
         reader.readInShelving();

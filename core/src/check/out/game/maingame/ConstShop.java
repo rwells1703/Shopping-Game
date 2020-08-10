@@ -4,6 +4,8 @@ public class ConstShop {
     public static int //Effect priorities - called in ascending order.
             EP_AI_KEYBOARD      =0x0010_0100,
 
+            EP_SLIPPERY_ICE     =0x0020_0100,
+
             EP_MOVE_SHOPPERS    =0x0030_0100,
             EP_LAUNCH_PROJECTILE=0x0040_0100,
             EP_PHYSICS_STEP     =0x0050_0100,
@@ -17,13 +19,15 @@ public class ConstShop {
             AP_DEBUG_DRAW       =0xFFFF;
 
     public static int
+            CP_ON_FLOORING      =0x00_00_10_10,
             CP_COLLECT_ITEMS    =0x00_00_00_20;
 
     public static int //Fermion set bits - use bitwise ORs to be in a set union.
             FB_SHOPPER          =1<<0,
             FB_TERRAIN          =1<<1,
             FB_PROJECTILE       =1<<2,
-            FB_COLLECTIBLE      =1<<3;
+            FB_COLLECTIBLE      =1<<3,
+            FB_FLOORING         =1<<4;
 
     public static float //Movement Constant.
             SHOPPERTORQUEFACTOR     = 3f,
@@ -32,6 +36,8 @@ public class ConstShop {
             SHOPPERLINEARDAMPING    = 2,
             SHOPPERANGULARDAMPING   = 10f,
             SHOPPEREMPTYDENISTY     = 1.4f;
+
+    public static float ICE_THRUST_2=SHOPPERTHRUSTFACTOR/16f;
 
     public static final float SHELF_UNIT_SIZE=1f;
 }
