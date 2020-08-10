@@ -26,6 +26,8 @@ import fernebon.core.impl.SupernovaPartial;
 import fernebon.core.util.effects.DrawCaller;
 import fernebon.gdx.util.artists.ScreenClearer;
 
+import java.util.Random;
+
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     private float   MAP_WIDTH =20,
                     MAP_HEIGHT=15;
@@ -109,13 +111,15 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         nebulaImplemented.player = list
             .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(2, 2)));
 
+        Random rnd = new Random(System.currentTimeMillis());
+
         //###Begin add collectibles.
         for (int i = 0; i < 10; i++) {
-            list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT))));
+            int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
+            System.out.println(type+1);
+            list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT)), type));
         }
         //###End add collectibles.
-
-//        list.add(() -> new Projectile(nebulaImplemented.world(), new Vector2(0,0)));
         reader.readInShelving();
     }
 

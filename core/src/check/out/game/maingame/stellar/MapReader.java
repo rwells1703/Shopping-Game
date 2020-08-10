@@ -38,6 +38,7 @@ public class MapReader {
         boolean makingBlock=false;
         TiledMapTileLayer.Cell cell;
 
+        System.out.println(shelves.getHeight());
         for(int bottom=0; bottom<shelves.getHeight(); bottom++){
             for (int x = 0; x < shelves.getWidth(); x++) {
                 cell=shelves.getCell(x,bottom);
