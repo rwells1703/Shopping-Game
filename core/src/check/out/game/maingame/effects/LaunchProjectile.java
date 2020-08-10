@@ -7,7 +7,6 @@ import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.IntIntMap;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.effect.Effect;
 import fernebon.core.base.fermion.FermionList;
@@ -37,7 +36,6 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-
             Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
             Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
             Projectile projectile = new Projectile(((NebulaShop)nebula).world(), projectilePos, projectileVel, this.type);
