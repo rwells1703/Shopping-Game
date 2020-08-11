@@ -34,6 +34,7 @@ public class ConstShop {
         SHOPPERTHRUSTFACTOR        = 300f,
         SHOPPERBRAKEFACTOR         = 170f,
         SHOPPERLINEARDAMPING       = 3,
+        SHOPPERLINEARDAMPINGDRIFT  = 4,
         SHOPPERANGULARDAMPING      = 10f,
         SHOPPERANGULARDAMPINGDRIFT = 7f,
         SHOPPEREMPTYDENISTY        = 1.4f;

@@ -33,6 +33,13 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
         player.controller.desiredTorque = -((Gdx.input.isKeyPressed(Input.Keys.D)?1:0)
                 - (Gdx.input.isKeyPressed(Input.Keys.A)?1:0))*ConstShop.SHOPPERTORQUEFACTOR;
 
-        player.getBody().setAngularDamping(Gdx.input.isKeyPressed(Input.Keys.SPACE)?ConstShop.SHOPPERANGULARDAMPINGDRIFT:ConstShop.SHOPPERANGULARDAMPING);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.getBody().setAngularDamping(ConstShop.SHOPPERANGULARDAMPINGDRIFT);
+            player.getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPINGDRIFT);
+        } else {
+            player.getBody().setAngularDamping(ConstShop.SHOPPERANGULARDAMPING);
+            player.getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPING);
+        }
+
     }
 }
