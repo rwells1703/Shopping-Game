@@ -36,6 +36,7 @@ public class NebulaShop extends NebulaB2DEasyOverride {
         return new int[]{
                 ConstShop.FB_SHOPPER,
                 ConstShop.FB_COLLECTIBLE,
+                ConstShop.FB_FLOORING,
         };
     }
 
@@ -47,4 +48,5 @@ public class NebulaShop extends NebulaB2DEasyOverride {
 
     public Pointer<Fermion> player;
     public Body bodyForSensors;
+    //Todo shared SpriteBatch.
 }

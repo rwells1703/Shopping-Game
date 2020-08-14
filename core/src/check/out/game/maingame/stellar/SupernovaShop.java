@@ -1,6 +1,7 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.artists.FlooringHazardsDrawer;
 import check.out.game.maingame.artists.HotbarDrawer;
 import check.out.game.maingame.artists.MapDrawer;
 import check.out.game.maingame.artists.PlayerDrawer;
@@ -10,7 +11,6 @@ import check.out.game.maingame.effects.Gravity;
 import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
-import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
 import check.out.game.maingame.fermions.*;
 import check.out.game.maingame.fermions.flooring.IceRing;
 import com.badlogic.gdx.Gdx;
@@ -101,7 +101,13 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 }
             });
         }
-        list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f) {
+        list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f,"floor") {
+            @Override
+            public int getPriority() {
+                return ConstShop.AP_FLOOR_DRAW;
+            }
+        });
+        list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f,"shelves") {
             @Override
             public int getPriority() {
                 return ConstShop.AP_SHELVING_DRAW;
@@ -110,6 +116,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
 
         list.add(() -> new PlayerDrawer(camera));
         list.add(() -> new HotbarDrawer(camera));
+        list.add(() -> new FlooringHazardsDrawer(camera));
     }
     protected void addColliders(NebulaShop nebulaImplemented){
         ColliderList list=nebulaImplemented.colliders();

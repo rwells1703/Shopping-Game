@@ -22,7 +22,7 @@ public class IceRing extends Flooring {
     @Override
     protected Shape getShape(Vector2 position) {
         CircleShape shape=new CircleShape();
-        shape.setRadius(ConstShop.SHELF_UNIT_SIZE*4);
+        shape.setRadius(ConstShop.ICE_RING_RADIUS);
         shape.setPosition(position);
         return shape;
     }
