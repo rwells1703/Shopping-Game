@@ -7,7 +7,11 @@ import check.out.game.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		//config.fullscreen = true;
+
+		config.forceExit = false;
+		config.fullscreen = false;
+
 		new LwjglApplication(new MyGdxGame(), config);
+
 	}
 }

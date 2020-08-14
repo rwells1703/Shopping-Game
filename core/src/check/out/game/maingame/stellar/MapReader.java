@@ -3,6 +3,7 @@ package check.out.game.maingame.stellar;
 import check.out.game.maingame.fermions.TerrainStatic;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
 
@@ -15,9 +16,22 @@ public class MapReader {
     }
 
     public void readInShelving(){
-        TiledMapTileLayer shelves= getShelvesLayer();
-        readInHorizontalShelving(shelves);
-        readInVerticalShelving(shelves);
+        TiledMapTileLayer shelves = getShelvesLayer();
+
+        for (int x = 0; x < shelves.getWidth(); x++) {
+            for (int y = 0; y < shelves.getHeight(); y++) {
+                Cell cell = shelves.getCell(x,y);
+                if (cell != null) {
+                    TerrainStatic terrain = new TerrainStatic(nebula.world(), x, y, 1, 1);
+                    nebula.fermions().add(() -> terrain);
+                }
+            }
+        }
+
+        //ArrayList<int[]> previouslyJoined = new ArrayList<>();
+
+        //readInVerticalShelving(shelves, previouslyJoined);
+        //readInVerticalShelving(shelves);
     }
 
     public float getMapWidth(){
@@ -31,7 +45,41 @@ public class MapReader {
         return (TiledMapTileLayer) map.getLayers().get("shelves");
     }
 
-    private void readInHorizontalShelving(TiledMapTileLayer shelves){
+    /*
+    public Cell getCell(TiledMapTileLayer shelves, int x, int y) {
+        int horizontal = shelves.getWidth()-1 - x;
+        int vertical = shelves.getHeight()-1 - y;
+
+        return getShelvesLayer().getCell(horizontal, vertical);
+    }
+
+    private void readInVerticalShelving(TiledMapTileLayer shelves, ArrayList<int[]> previouslyJoined){
+        //System.out.println(getCell(shelves,7,15));
+        int width = 0;
+        Cell previousCell = null;
+
+        for (int x = 0; x < shelves.getWidth(); x++) {
+            for(int y = 0; y < shelves.getHeight(); y++) {
+                Cell cell = shelves.getCell(x, y);
+
+                if ((cell != previousCell && previousCell != null) || (y == shelves.getHeight() && width > 0)) {
+                    // If we reach the end of a continuous row, or reach the edge of the map and we have started a group
+                    // draw the wall
+                    addShelf(x, y, width, 1);
+                    width = 0;
+                } else {
+                    width++;
+                    // Remember these coordinates of this tile
+                    // this prevents a tile from being created again in the horizontal pass
+                    //previouslyJoined.add(new int[]{x,y});
+                }
+
+                previousCell = cell;
+            }
+        }
+    }
+
+    private void readInHorizontalShelvingOld(TiledMapTileLayer shelves){
         int previousCell=-1;
         int width=1;
         int left=0;
@@ -70,7 +118,7 @@ public class MapReader {
         }
     }
 
-    private void readInVerticalShelving(TiledMapTileLayer shelves){
+    private void readInVerticalShelvingOld(TiledMapTileLayer shelves){
         int previousCell=-1;
         int height=1;
         int bottom=0;
@@ -108,7 +156,7 @@ public class MapReader {
         }
     }
 
-    private void addShelf(int left, int bottom, int width, int height){
-        nebula.fermions().add(() -> new TerrainStatic(nebula.world(),left,bottom,width,height));
-    }
+    private void addShelf(int x, int y, int width, int height){
+        nebula.fermions().add(() -> new TerrainStatic(nebula.world(), x, y, width, height));
+    }*/
 }

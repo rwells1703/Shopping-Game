@@ -28,16 +28,17 @@ public class ConstShop {
             FB_TERRAIN          =1<<1,
             FB_PROJECTILE       =1<<2,
             FB_COLLECTIBLE      =1<<3,
-            FB_FLOORING         =1<<4,
-            FB_HOTBAR           =1<<5;
+            FB_FLOORING         =1<<4;
 
     public static final float //Movement Constant.
-            SHOPPERTORQUEFACTOR     = 3f,
-            SHOPPERTHRUSTFACTOR     = 300f,
-            SHOPPERBRAKEFACTOR      = 170f,
-            SHOPPERLINEARDAMPING    = 2,
-            SHOPPERANGULARDAMPING   = 10f,
-            SHOPPEREMPTYDENISTY     = 1.4f;
+        SHOPPERTORQUEFACTOR        = 3f,
+        SHOPPERTHRUSTFACTOR        = 300f,
+        SHOPPERBRAKEFACTOR         = 170f,
+        SHOPPERLINEARDAMPING       = 3,
+        SHOPPERLINEARDAMPINGDRIFT  = 4,
+        SHOPPERANGULARDAMPING      = 10f,
+        SHOPPERANGULARDAMPINGDRIFT = 7f,
+        SHOPPEREMPTYDENISTY        = 1.4f;
 
     public static final float OBNOXIOUS_THRUST_FACTOR_2 =SHOPPERTHRUSTFACTOR/8f;
 
