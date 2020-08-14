@@ -3,7 +3,6 @@ package check.out.game.maingame.stellar;
 import check.out.game.maingame.fermions.TerrainStatic;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
 
@@ -16,22 +15,11 @@ public class MapReader {
     }
 
     public void readInShelving(){
-        TiledMapTileLayer shelves = getShelvesLayer();
+        boolean[][] hasShelf=getHasShelving(getShelvesLayer());
 
-        for (int x = 0; x < shelves.getWidth(); x++) {
-            for (int y = 0; y < shelves.getHeight(); y++) {
-                Cell cell = shelves.getCell(x,y);
-                if (cell != null) {
-                    TerrainStatic terrain = new TerrainStatic(nebula.world(), x, y, 1, 1);
-                    nebula.fermions().add(() -> terrain);
-                }
-            }
-        }
-
-        //ArrayList<int[]> previouslyJoined = new ArrayList<>();
-
-        //readInVerticalShelving(shelves, previouslyJoined);
-        //readInVerticalShelving(shelves);
+        readInVerticalShelving(hasShelf);
+        readInHorizontalShelving(hasShelf);
+//        checkReadIn(hasShelf);
     }
 
     public float getMapWidth(){
@@ -45,108 +33,44 @@ public class MapReader {
         return (TiledMapTileLayer) map.getLayers().get("shelves");
     }
 
-    /*
-    public Cell getCell(TiledMapTileLayer shelves, int x, int y) {
-        int horizontal = shelves.getWidth()-1 - x;
-        int vertical = shelves.getHeight()-1 - y;
-
-        return getShelvesLayer().getCell(horizontal, vertical);
-    }
-
-    private void readInVerticalShelving(TiledMapTileLayer shelves, ArrayList<int[]> previouslyJoined){
-        //System.out.println(getCell(shelves,7,15));
-        int width = 0;
-        Cell previousCell = null;
-
+    private boolean[][] getHasShelving(TiledMapTileLayer shelves){
+        boolean[][] hasShelf=new boolean[shelves.getWidth()][shelves.getHeight()];
         for (int x = 0; x < shelves.getWidth(); x++) {
-            for(int y = 0; y < shelves.getHeight(); y++) {
-                Cell cell = shelves.getCell(x, y);
-
-                if ((cell != previousCell && previousCell != null) || (y == shelves.getHeight() && width > 0)) {
-                    // If we reach the end of a continuous row, or reach the edge of the map and we have started a group
-                    // draw the wall
-                    addShelf(x, y, width, 1);
-                    width = 0;
-                } else {
-                    width++;
-                    // Remember these coordinates of this tile
-                    // this prevents a tile from being created again in the horizontal pass
-                    //previouslyJoined.add(new int[]{x,y});
-                }
-
-                previousCell = cell;
+            for (int y = 0; y < shelves.getHeight(); y++) {
+                hasShelf[x][y]=(shelves.getCell(x,y)!=null);
             }
         }
+
+        return hasShelf;
     }
 
-    private void readInHorizontalShelvingOld(TiledMapTileLayer shelves){
-        int previousCell=-1;
-        int width=1;
-        int left=0;
-        boolean makingBlock=false;
-        TiledMapTileLayer.Cell cell;
-
-        System.out.println(shelves.getHeight());
-        for(int bottom=0; bottom<shelves.getHeight(); bottom++){
-            for (int x = 0; x < shelves.getWidth(); x++) {
-                cell=shelves.getCell(x,bottom);
-                if(cell==null){
-                    if(makingBlock) {
-                        addShelf(left,bottom,width,1);
-                        makingBlock=false;
-                    }
-                    previousCell=-1;
-                }
-                else if(cell.getTile().getId()!=previousCell){
-                    if(makingBlock) addShelf(left,bottom,width,1);
-                    previousCell=cell.getTile().getId();
-                    if(previousCell%2==0) {
-                        left = x;
-                        width = 1;
-                        makingBlock=true;
-                    }
-                    else makingBlock=false;
-                }
-                else {
-                    width++;
-                }
-            }
-            if(makingBlock){
-                addShelf(left,bottom,width,1);
-                makingBlock=false;
-            }
-        }
-    }
-
-    private void readInVerticalShelvingOld(TiledMapTileLayer shelves){
-        int previousCell=-1;
+    /**
+     * Only reads in shelving that forms vertical blocks of length >=2 as vertical shelves.
+     */
+    private void readInVerticalShelving(boolean[][] hasShelf){
         int height=1;
         int bottom=0;
         boolean makingBlock=false;
-        TiledMapTileLayer.Cell cell;
+        final int WIDTH=hasShelf.length, HEIGHT=hasShelf[0].length;
 
-        for(int left=0; left<shelves.getWidth(); left++){
-            for (int y = 0; y < shelves.getHeight(); y++) {
-                cell=shelves.getCell(left,y);
-                if(cell==null){
-                    if(makingBlock) {
+        for(int left=0; left<WIDTH; left++){
+            for (int y = 0; y < HEIGHT; y++) {
+                if(makingBlock){
+                    if(hasShelf[left][y]){
+                        hasShelf[left][y]=false;
+                        height++;
+                    }
+                    else{
                         addShelf(left,bottom,1,height);
                         makingBlock=false;
                     }
-                    previousCell=-1;
                 }
-                else if(cell.getTile().getId()!=previousCell){
-                    if(makingBlock) addShelf(left,bottom,1,height);
-                    previousCell=cell.getTile().getId();
-                    if(previousCell%2==1) {
-                        bottom = y;
-                        height = 1;
-                        makingBlock=true;
+                else{
+                    if(hasShelf[left][y] && y!=HEIGHT-1 && hasShelf[left][y+1]){
+                        bottom=y;height=2;makingBlock=true;
+                        hasShelf[left][y]=hasShelf[left][y+1]=false;
+                        y++;//Already checked.
                     }
-                    else makingBlock=false;
-                }
-                else {
-                    height++;
                 }
             }
             if(makingBlock){
@@ -156,7 +80,57 @@ public class MapReader {
         }
     }
 
+    /**
+     * Reads in remaining shelves as horizontal shelves.
+     */
+    private void readInHorizontalShelving(boolean[][] hasShelf){
+        int width=1;
+        int left=0;
+        boolean makingBlock=false;
+        final int WIDTH=hasShelf.length, HEIGHT=hasShelf[0].length;
+
+        for(int bottom=0; bottom<HEIGHT; bottom++){
+            for (int x = 0; x < HEIGHT; x++) {
+                if(makingBlock){
+                    if(hasShelf[x][bottom]){
+                        hasShelf[x][bottom]=false;
+                        width++;
+                    }
+                    else{
+                        addShelf(left,bottom,width,1);
+                        makingBlock=false;
+                    }
+                }
+                else{
+                    if(hasShelf[x][bottom]){
+                        left=x;width=1;makingBlock=true;
+                        hasShelf[x][bottom]=false;
+                    }
+                }
+            }
+            if(makingBlock){
+                addShelf(left,bottom,width,1);
+                makingBlock=false;
+            }
+        }
+    }
+
+    /**
+     * Reports on how many shelves weren't read in.
+     */
+    private void checkReadIn(boolean[][] hasShelf){
+        int misreads=0;
+        for (int i = 0; i < hasShelf.length; i++) {
+            for (int j = 0; j < hasShelf[i].length; j++) {
+                if (hasShelf[i][j]) {
+                    System.out.println(i + "," + j + " wasn't read in!");misreads++;
+                }
+            }
+        }
+        System.out.println("Done reading map with "+misreads+" shelf block(s) not read in.");
+    }
+
     private void addShelf(int x, int y, int width, int height){
         nebula.fermions().add(() -> new TerrainStatic(nebula.world(), x, y, width, height));
-    }*/
+    }
 }
