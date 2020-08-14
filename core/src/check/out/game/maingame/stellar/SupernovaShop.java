@@ -6,6 +6,7 @@ import check.out.game.maingame.artists.MapDrawer;
 import check.out.game.maingame.artists.PlayerDrawer;
 import check.out.game.maingame.colliders.CollectCollectibles;
 import check.out.game.maingame.effects.ControllerForcesOnShoppers;
+import check.out.game.maingame.effects.Gravity;
 import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
 import check.out.game.maingame.effects.ai.KeyboardMovesPlayer;
@@ -68,6 +69,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         list.add(KeyboardMovesPlayer::new);
         list.add(ControllerForcesOnShoppers::new);
         list.add(LaunchProjectile::new);
+        list.add(Gravity::new);
         list.add(() -> new StepperOfWorld() {
             @Override
             public int getPriority() {
@@ -92,12 +94,12 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
             }
         });
         if (debug) {
-          list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
-            @Override
-            public int getPriority() {
-              return ConstShop.AP_DEBUG_DRAW;
-            }
-          });
+            list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
+                @Override
+                public int getPriority() {
+                    return ConstShop.AP_DEBUG_DRAW;
+                }
+            });
         }
         list.add(() -> new MapDrawer((OrthographicCamera) camera,map,ConstShop.SHELF_UNIT_SIZE/128f) {
             @Override
