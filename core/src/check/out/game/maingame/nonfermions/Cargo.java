@@ -10,7 +10,6 @@ public class Cargo {
     }
     public void removeOneOf(int type){
         System.out.println(quantity);
-
-        quantity.remove(type, quantity.get(type, 1)-1);
+        quantity.put(type, quantity.get(type, 1)-1);
     }
 }
