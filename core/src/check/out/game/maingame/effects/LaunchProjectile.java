@@ -37,9 +37,7 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
             this.type = 2;
         }
 
-//        System.out.println(player.cargo.quantity.get(0, 0));
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             if(player.cargo.quantity.get(this.type, 0)>0){
                 Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
                 Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));

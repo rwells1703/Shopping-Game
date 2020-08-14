@@ -15,6 +15,7 @@ public class ConstShop {
     public static final int //Artist priorities - called in ascending order.
             AP_SCREEN_CLEAR     =0x1000,
             AP_SHELVING_DRAW    =0x2000,
+            AP_HOTBAR_DRAW      =0x2500,
             AP_PLAYER_DRAW      =0x2600,
             AP_DEBUG_DRAW       =0xFFFF;
 
@@ -27,7 +28,7 @@ public class ConstShop {
             FB_TERRAIN          =1<<1,
             FB_PROJECTILE       =1<<2,
             FB_COLLECTIBLE      =1<<3,
-        FB_FLOORING         =1<<4;
+            FB_FLOORING         =1<<4;
 
     public static final float //Movement Constant.
         SHOPPERTORQUEFACTOR        = 3f,

@@ -1,6 +1,7 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.artists.HotbarDrawer;
 import check.out.game.maingame.artists.MapDrawer;
 import check.out.game.maingame.artists.PlayerDrawer;
 import check.out.game.maingame.colliders.CollectCollectibles;
@@ -106,6 +107,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         });
 
         list.add(() -> new PlayerDrawer(camera));
+        list.add(() -> new HotbarDrawer(camera));
     }
     protected void addColliders(NebulaShop nebulaImplemented){
         ColliderList list=nebulaImplemented.colliders();
@@ -127,7 +129,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         Random rnd = new Random(System.currentTimeMillis());
 
         //###Begin add collectibles.
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
 //            System.out.println(type+1);
             list.add(() -> new Collectible(nebulaImplemented,new Vector2(MathUtils.random(MAP_WIDTH),MathUtils.random(MAP_HEIGHT)), type));
@@ -139,16 +141,17 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         list.add(() -> new IceRing(nebulaImplemented,new Vector2(4,16)));
         //###End add ice.
 
+
         reader.readInShelving();
 
         //###Begin add obnoxious.
-        EffectList effectList=nebulaImplemented.effects();
-        for(int i=1;i<=5;i++){
-            int finalI = i;
-            effectList.add(() -> new ObnoxiousRamsPlayer(
-                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(finalI *4, finalI *4)))
-            ));
-        }
+//        EffectList effectList=nebulaImplemented.effects();
+//        for(int i=1;i<=5;i++){
+//            int finalI = i;
+//            effectList.add(() -> new ObnoxiousRamsPlayer(
+//                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(finalI *4, finalI *4)))
+//            ));
+//        }
         //###End add obnoxious.
     }
 
