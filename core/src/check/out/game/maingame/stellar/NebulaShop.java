@@ -10,7 +10,6 @@ import fernebon.core.base.Pointer;
 import fernebon.core.base.fermion.Fermion;
 
 public class NebulaShop extends NebulaB2DEasyOverride {
-
     public SoundEffectHandler soundEffectHandler;
     public Pointer<Fermion> player;
     public Body bodyForSensors;

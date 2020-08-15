@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
 public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a Body (called body) that is automatically disposed of, but needs to be set.
-
     public Controller controller = new Controller();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
 
     public Shopper(World world, Vector2 position) {

@@ -15,7 +15,6 @@ import fernebon.core.util.LifeCycleImplementation;
  * AI to try to make a given shopper try and ram into the player.
  */
 public class ObnoxiousRamsPlayer extends LifeCycleImplementation implements Effect {
-
     private Pointer<Fermion> pointer;
 
     public ObnoxiousRamsPlayer(Pointer<Fermion> pointer) {

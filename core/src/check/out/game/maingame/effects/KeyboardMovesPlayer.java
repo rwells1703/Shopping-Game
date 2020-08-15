@@ -11,7 +11,6 @@ import fernebon.core.base.effect.Effect;
 import fernebon.core.util.LifeCycleImplementation;
 
 public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effect {
-
     @Override
     public int getPriority() {
         return ConstShop.EP_AI_KEYBOARD;
