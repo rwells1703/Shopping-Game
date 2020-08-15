@@ -1,4 +1,4 @@
-package check.out.game.maingame.effects.ai;
+package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Shopper;
@@ -40,6 +40,5 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
             player.getBody().setAngularDamping(ConstShop.SHOPPERANGULARDAMPING);
             player.getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPING);
         }
-
     }
 }
