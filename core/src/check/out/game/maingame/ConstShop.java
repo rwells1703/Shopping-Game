@@ -9,11 +9,14 @@ public class ConstShop {
             EP_MOVE_SHOPPERS    =0x0030_0100,
             EP_LAUNCH_PROJECTILE=0x0040_0100,
             EP_PHYSICS_STEP     =0x0050_0100,
+            EP_GRAVITY          =0x0050_0200,
             EP_SPOTLIGHT        =0x0070_0100,
             EP_DRAW             =0x0070_0200;
 
     public static final int //Artist priorities - called in ascending order.
             AP_SCREEN_CLEAR     =0x1000,
+            AP_FLOOR_DRAW       =0x1400,
+            AP_FLOOR_HAZARDS    =0x1800,
             AP_SHELVING_DRAW    =0x2000,
             AP_HOTBAR_DRAW      =0x2500,
             AP_PLAYER_DRAW      =0x2600,
@@ -32,6 +35,8 @@ public class ConstShop {
             FB_COLLECTIBLE      =1<<3,
             FB_FLOORING         =1<<4;
 
+    public static final float SHELF_UNIT_SIZE=1f;
+
     public static final float //Movement Constant.
         SHOPPERTORQUEFACTOR        = 3f,
         SHOPPERTHRUSTFACTOR        = 300f,
@@ -44,11 +49,13 @@ public class ConstShop {
 
     public static final float OBNOXIOUS_THRUST_FACTOR_2 =SHOPPERTHRUSTFACTOR/8f;
 
-    public static final float ICE_THRUST_2=SHOPPERTHRUSTFACTOR/16f;
-
-    public static final float SHELF_UNIT_SIZE=1f;
+    public static final float
+            ICE_THRUST_2    =SHOPPERTHRUSTFACTOR/16f,
+            ICE_RING_RADIUS =SHELF_UNIT_SIZE*4;
 
     public static final int NUM_PROJECTILE_TYPES = 3;
     public static final int NUM_COLLECTIBLE_TYPES = 3;
+
+    public static final int HOTBAR_MAX = 5;
 
 }

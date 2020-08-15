@@ -6,7 +6,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
 public class Projectile extends BodiedFermionPartial {
+    public static int SELECTED_TYPE = 0;
     public int type;
+    public boolean transformed; //determines which texture to use
 
     public Projectile(World world, Vector2 position, Vector2 velocity, int type){
         this.type = type;

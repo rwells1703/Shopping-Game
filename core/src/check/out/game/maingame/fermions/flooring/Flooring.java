@@ -16,6 +16,7 @@ import fernebon.core.base.fermion.Fermion;
 public class Flooring extends SensorFermionPartial implements Fermion, Prehensile {
     public Flooring(NebulaShop nebula, Vector2 position) {
         super(nebula, position);
+        this.position = position;
     }
 
     @Override
@@ -27,6 +28,7 @@ public class Flooring extends SensorFermionPartial implements Fermion, Prehensil
      * The ObjectSet of shoppers that are standing on this piece of flooring.
      */
     public ObjectSet<Shopper> standingOn=new ObjectSet<>();//Hmm, or should this store Fermions so, e.g., projectiles can stand on the floor?
+    public Vector2 position;//For drawing purposes.
 
     @Override
     public void beginContact(Fixture fixture) {

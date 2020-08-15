@@ -64,8 +64,17 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
     for(Projectile projectile: nebula.fermions().<Projectile>particles(ConstShop.FB_PROJECTILE)){
       Vector2 pos = projectile.getBody().getPosition();
       float angle = (float) (projectile.getBody().getAngle() *180/Math.PI);
-      batch.draw(projectileTextureRegions[projectile.type], pos.x-0.25f, pos.y-0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, angle);
+      TextureRegion region;
+      if(projectile.transformed){
+        region = projectileTextureRegions[projectile.type];
+      }else{
+        region = collectibleTextureRegions[projectile.type];
+      }
+      batch.draw(region, pos.x-0.25f, pos.y-0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, angle);
+
+
     }
+
     for(Collectible collectible: nebula.fermions().<Collectible>particles(ConstShop.FB_COLLECTIBLE)){
       Vector2 pos = collectible.getPosition();
       float angle = (float) (collectible.getSensor().getBody().getAngle() *180/Math.PI);
