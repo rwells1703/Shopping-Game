@@ -24,8 +24,7 @@ public abstract class Terrain extends BodiedFermionPartial implements Fermion {
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
 
-    body.createFixture(fixtureDef);
-    body.setUserData(this);
+    body.createFixture(fixtureDef).setUserData(this);
 
     shape.dispose();
   }

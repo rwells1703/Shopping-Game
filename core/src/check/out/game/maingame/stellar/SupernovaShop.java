@@ -5,6 +5,8 @@ import check.out.game.maingame.artists.HotbarDrawer;
 import check.out.game.maingame.artists.MapDrawer;
 import check.out.game.maingame.artists.PlayerDrawer;
 import check.out.game.maingame.colliders.CollectCollectibles;
+import check.out.game.maingame.colliders.ShopperShelfCrash;
+import check.out.game.maingame.colliders.ShopperShopperCrash;
 import check.out.game.maingame.effects.ControllerForcesOnShoppers;
 import check.out.game.maingame.effects.LaunchProjectile;
 import check.out.game.maingame.effects.Spotlight;
@@ -113,6 +115,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         ColliderList list=nebulaImplemented.colliders();
 
         list.add(CollectCollectibles::new);
+        list.add(ShopperShopperCrash::new);
+        list.add(ShopperShelfCrash::new);
         list.add(() -> new PrehensileCollisionManager() {
             @Override
             public int getPriority() {
@@ -145,13 +149,13 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         reader.readInShelving();
 
         //###Begin add obnoxious.
-//        EffectList effectList=nebulaImplemented.effects();
-//        for(int i=1;i<=5;i++){
-//            int finalI = i;
-//            effectList.add(() -> new ObnoxiousRamsPlayer(
-//                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(finalI *4, finalI *4)))
-//            ));
-//        }
+        EffectList effectList=nebulaImplemented.effects();
+        for(int i=1;i<=5;i++){
+            int finalI = i;
+            effectList.add(() -> new ObnoxiousRamsPlayer(
+                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(),new Vector2(finalI *4, finalI *4)))
+            ));
+        }
         //###End add obnoxious.
     }
 

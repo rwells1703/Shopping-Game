@@ -20,11 +20,10 @@ public class SoundEffectHandler {
     protected void loadSoundFiles(){
         FileHandle file = Gdx.files.internal("sounds/fileNames.txt");
         String text = file.readString();
-        String[] fileNames = text.split("\n");
+        String[] fileNames = text.split(",");
         
         for(String id:fileNames) {
             try {
-                id = id.substring(0,id.length()-1);
                 soundSet.put(id, Gdx.audio.newSound(Gdx.files.internal("sounds/" + id + ".wav")));
             } catch (GdxRuntimeException e) {
                 e.printStackTrace();

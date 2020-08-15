@@ -20,8 +20,10 @@ public class ConstShop {
             AP_DEBUG_DRAW       =0xFFFF;
 
     public static final int
-            CP_ON_FLOORING      =0x00_00_10_10,
-            CP_COLLECT_ITEMS    =0x00_00_00_20;
+            CP_ON_FLOORING              =0x00_00_10_10,
+            CP_COLLECT_ITEMS            =0x00_00_00_20,
+            CP_SHOPPER_SHELF_CRASH      =0x00_00_00_30,
+            CP_SHOPPER_SHOPPER_CRASH    =0x00_00_00_40;
 
     public static final int //Fermion set bits - use bitwise ORs to be in a set union.
             FB_SHOPPER          =1<<0,

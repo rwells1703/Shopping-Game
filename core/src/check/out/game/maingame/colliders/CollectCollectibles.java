@@ -37,4 +37,9 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
         nebula.fermions().remove(collectible);
         ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
     }
+
+    private void trolleyShelfCrash(Nebula nebula) {
+        int soundNumber = (int)(Math.random() * ((2-1) + 1)) + 1;
+        ((NebulaShop) nebula).soundEffectHandler.playSound("trolleyShelfCrash" + soundNumber);
+    }
 }
