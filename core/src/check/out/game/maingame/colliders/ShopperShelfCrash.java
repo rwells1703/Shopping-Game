@@ -2,7 +2,6 @@ package check.out.game.maingame.colliders;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Shopper;
-import check.out.game.maingame.fermions.Terrain;
 import check.out.game.maingame.fermions.TerrainStatic;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -21,10 +20,10 @@ public class ShopperShelfCrash extends LifeCycleImplementation implements Collid
 
     @Override
     public void beginContact(Nebula nebula, Contact contact) {
-        Object A=contact.getFixtureA().getUserData();
-        Object B=contact.getFixtureB().getUserData();
+        Object A = contact.getFixtureA().getUserData();
+        Object B = contact.getFixtureB().getUserData();
 
-        if(A instanceof Shopper && B instanceof TerrainStatic) {
+        if (A instanceof Shopper && B instanceof TerrainStatic) {
             shopperShelfCrash(nebula, (Shopper) A);
         } else if (A instanceof TerrainStatic && B instanceof Shopper) {
             shopperShelfCrash(nebula, (Shopper) B);

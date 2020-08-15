@@ -17,7 +17,8 @@ import fernebon.core.util.LifeCycleImplementation;
 public class ObnoxiousRamsPlayer extends LifeCycleImplementation implements Effect {
 
     private Pointer<Fermion> pointer;
-    public ObnoxiousRamsPlayer(Pointer<Fermion> pointer){
+
+    public ObnoxiousRamsPlayer(Pointer<Fermion> pointer) {
         this.pointer = pointer;
     }
 
@@ -29,18 +30,19 @@ public class ObnoxiousRamsPlayer extends LifeCycleImplementation implements Effe
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
         //Set the player's desired force based on the ws keys - this method doesn't actually apply said force.
-        Shopper shopper=pointer.getPointeeCast();
-        if(shopper==null) {//Just in case - if the shopper is no more, dispose of this effect.
-            nebula.effects().remove(this);return;
+        Shopper shopper = pointer.getPointeeCast();
+        if (shopper == null) {//Just in case - if the shopper is no more, dispose of this effect.
+            nebula.effects().remove(this);
+            return;
         }
 
-        float shopperAngle=shopper.getBody().getAngle();
-        Vector2 vector=shopper.controller.desiredForce;
-        vector.set(((NebulaShop)nebula).player.<Player>getPointeeCast().getBody().getPosition());
+        float shopperAngle = shopper.getBody().getAngle();
+        Vector2 vector = shopper.controller.desiredForce;
+        vector.set(((NebulaShop) nebula).player.<Player>getPointeeCast().getBody().getPosition());
         vector.sub(shopper.getBody().getPosition());//Vector should now be displacement from shopper to player.
         vector.rotateRad(-shopperAngle);//Vector should now be displacement of player from shopper, in frame in which shopper is facing forward.
 
-        shopper.controller.desiredTorque=ConstShop.SHOPPERTORQUEFACTOR*(vector.x<0?1:-1);//Apply torque to try and point at player.
+        shopper.controller.desiredTorque = ConstShop.SHOPPERTORQUEFACTOR * (vector.x < 0 ? 1 : -1);//Apply torque to try and point at player.
 
         vector.setLength2(ConstShop.OBNOXIOUS_THRUST_FACTOR_2);//Now vector is to become desired force - set the length (if displacement is (0,0), there should be a "glitch" in which no force is applied, but then shopper and player coincide...)
         vector.rotateRad(shopperAngle);//Set force to be in direction of trolley.

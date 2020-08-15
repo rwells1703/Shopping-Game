@@ -3,7 +3,6 @@ package check.out.game.maingame.effects;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Projectile;
-import check.out.game.maingame.nonfermions.InputCore;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,27 +14,26 @@ import fernebon.core.util.LifeCycleImplementation;
 
 public class LaunchProjectile extends LifeCycleImplementation implements Effect {
     @Override
-    public int getPriority(){
+    public int getPriority() {
         return ConstShop.EP_LAUNCH_PROJECTILE;
     }
 
     @Override
-    public void onUpdate(Nebula nebula, float deltaTime){
+    public void onUpdate(Nebula nebula, float deltaTime) {
         FermionList list = nebula.fermions();
 
-        Player player = ((NebulaShop)nebula).player.getPointeeCast();
+        Player player = ((NebulaShop) nebula).player.getPointeeCast();
 
         Vector2 playerPos = player.getBody().getPosition();
         float playerAngle = player.getBody().getAngle();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)){
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             Projectile.SELECTED_TYPE = 0;
-        }else if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)){
-            Projectile.SELECTED_TYPE=1;
-        }else if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)){
-            Projectile.SELECTED_TYPE=2;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            Projectile.SELECTED_TYPE = 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
+            Projectile.SELECTED_TYPE = 2;
         }
-
 
 
         //TODO scrolling not working properly - might be my scroll wheel is dodgy?
@@ -47,10 +45,10 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 //        }
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            if(player.cargo.quantity.get(Projectile.SELECTED_TYPE, 0)>0){
-                Vector2 projectilePos = new Vector2(playerPos.x-(float)(1*Math.sin(playerAngle)), playerPos.y+(float)(1*Math.cos(playerAngle)));
-                Vector2 projectileVel = new Vector2(5*(float)Math.cos(playerAngle+Math.PI/2), 5*(float)Math.sin(playerAngle+Math.PI/2));
-                Projectile projectile = new Projectile(((NebulaShop)nebula).world(), projectilePos, projectileVel, Projectile.SELECTED_TYPE);
+            if (player.cargo.quantity.get(Projectile.SELECTED_TYPE, 0) > 0) {
+                Vector2 projectilePos = new Vector2(playerPos.x - (float) (1 * Math.sin(playerAngle)), playerPos.y + (float) (1 * Math.cos(playerAngle)));
+                Vector2 projectileVel = new Vector2(5 * (float) Math.cos(playerAngle + Math.PI / 2), 5 * (float) Math.sin(playerAngle + Math.PI / 2));
+                Projectile projectile = new Projectile(((NebulaShop) nebula).world(), projectilePos, projectileVel, Projectile.SELECTED_TYPE);
                 list.add(() -> projectile);
 
 

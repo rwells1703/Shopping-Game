@@ -18,11 +18,13 @@ public class FlooringHazardsDrawer extends LifeCycleImplementation implements Ar
     private Texture texture;
     private SpriteBatch batch;
     private Camera camera;
-    public FlooringHazardsDrawer(Camera camera){
+
+    public FlooringHazardsDrawer(Camera camera) {
         this.camera = camera;
-        batch=new SpriteBatch();
+        batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal("hazardTexture.png"));
     }
+
     @Override
     public int getPriority() {
         return ConstShop.AP_FLOOR_HAZARDS;
@@ -34,10 +36,10 @@ public class FlooringHazardsDrawer extends LifeCycleImplementation implements Ar
         batch.enableBlending();
         batch.begin();
 
-        for(Flooring flooring:nebula.fermions().<Flooring>particles(ConstShop.FB_FLOORING)){
-            Vector2 position= flooring.position;
-            if(flooring instanceof IceRing){
-                batch.draw(texture,position.x-ICE_RING_RADIUS,position.y-ICE_RING_RADIUS,ICE_RING_RADIUS*2,ICE_RING_RADIUS*2,0,0,128,128,false,false);
+        for (Flooring flooring : nebula.fermions().<Flooring>particles(ConstShop.FB_FLOORING)) {
+            Vector2 position = flooring.position;
+            if (flooring instanceof IceRing) {
+                batch.draw(texture, position.x - ICE_RING_RADIUS, position.y - ICE_RING_RADIUS, ICE_RING_RADIUS * 2, ICE_RING_RADIUS * 2, 0, 0, 128, 128, false, false);
             }
         }
 

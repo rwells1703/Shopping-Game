@@ -2,7 +2,10 @@ package check.out.game.maingame.fermions;
 
 import check.out.game.maingame.ConstShop;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import fernebon.b2d.util.fermions.BodiedFermionPartial;
 
 public class Projectile extends BodiedFermionPartial {
@@ -10,7 +13,7 @@ public class Projectile extends BodiedFermionPartial {
     public int type;
     public boolean transformed; //determines which texture to use
 
-    public Projectile(World world, Vector2 position, Vector2 velocity, int type){
+    public Projectile(World world, Vector2 position, Vector2 velocity, int type) {
         this.type = type;
 
         BodyDef bodyDef = new BodyDef();
@@ -20,14 +23,14 @@ public class Projectile extends BodiedFermionPartial {
         bodyDef.linearDamping = 4;
         bodyDef.angularDamping = 4;
 
-        body=world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
 
-        PolygonShape shape=new PolygonShape();//Create fixture shape.
+        PolygonShape shape = new PolygonShape();//Create fixture shape.
         shape.set(new float[]{-0.25f, -0.25f, 0.25f, -0.25f, 0.25f, 0.25f, -0.25f, 0.25f});
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density=1;
+        fixtureDef.density = 1;
 
         body.createFixture(fixtureDef);
 

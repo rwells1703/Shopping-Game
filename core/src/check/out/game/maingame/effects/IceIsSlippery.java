@@ -15,9 +15,11 @@ import fernebon.core.util.LifeCycleImplementation;
  */
 public class IceIsSlippery extends LifeCycleImplementation implements Effect {
     private Pointer<Fermion> iceRing;//Points to the ice ring. Should never be null, as this effect is disposed of by the iceRing when the iceRing is disposed of.
-    public IceIsSlippery(Pointer<Fermion> iceRing){
+
+    public IceIsSlippery(Pointer<Fermion> iceRing) {
         this.iceRing = iceRing;
     }
+
     @Override
     public int getPriority() {
         return ConstShop.EP_SLIPPERY_ICE;
@@ -25,9 +27,9 @@ public class IceIsSlippery extends LifeCycleImplementation implements Effect {
 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
-        Vector2 addedSlipperyVector=new Vector2(0,0);
+        Vector2 addedSlipperyVector = new Vector2(0, 0);
         //Currently, slipperiness is applying a force in the direction of motion to counteract friction. Hmm, is there something better?
-        for(Shopper shopper: iceRing.<IceRing>getPointeeCast().standingOn){
+        for (Shopper shopper : iceRing.<IceRing>getPointeeCast().standingOn) {
             addedSlipperyVector.set(shopper.getBody().getLinearVelocity());
             addedSlipperyVector.setLength2(ConstShop.ICE_THRUST_2);
 //            addedSlipperyVector.set(ConstShop.ICE_THRUST_2,0);

@@ -7,6 +7,6 @@ import com.badlogic.gdx.math.Vector2;
  * Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
  */
 public class Controller {
-    public Vector2 desiredForce=new Vector2();
+    public Vector2 desiredForce = new Vector2();
     public float desiredTorque = 0f;
 }

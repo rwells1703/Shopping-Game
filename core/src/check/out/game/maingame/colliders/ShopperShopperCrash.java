@@ -19,15 +19,15 @@ public class ShopperShopperCrash extends LifeCycleImplementation implements Coll
 
     @Override
     public void beginContact(Nebula nebula, Contact contact) {
-        Object A=contact.getFixtureA().getUserData();
-        Object B=contact.getFixtureB().getUserData();
+        Object A = contact.getFixtureA().getUserData();
+        Object B = contact.getFixtureB().getUserData();
 
-        if(A instanceof Shopper && B instanceof Shopper)
+        if (A instanceof Shopper && B instanceof Shopper)
             shopperShopperCrash(nebula, (Shopper) A, (Shopper) B);
     }
 
     // One shopper crashes into another shopper
-    private void shopperShopperCrash(Nebula nebula, Shopper shopperA, Shopper shopperB){
+    private void shopperShopperCrash(Nebula nebula, Shopper shopperA, Shopper shopperB) {
         int minCrashSpeed = 2;
         if (Math.abs(shopperA.getBody().getLinearVelocity().x - shopperB.getBody().getLinearVelocity().x) >= minCrashSpeed || Math.abs(shopperA.getBody().getLinearVelocity().y - shopperB.getBody().getLinearVelocity().y) >= minCrashSpeed) {
             int soundNumber = (int) (Math.random() * ((5 - 1) + 1)) + 1;
