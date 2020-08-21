@@ -13,7 +13,6 @@ import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
 import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Shopper;
-import check.out.game.maingame.nonfermions.InputCore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -57,6 +56,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         Camera camera = new OrthographicCamera(((float) Gdx.graphics.getWidth() / (float) Gdx.graphics.getHeight()) * VIEWPORT_HEIGHT, VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
+
+        nebulaImplemented.mainCamera = camera;
 
         addFermions(nebulaImplemented, reader);
         addEffects(nebulaImplemented, camera);

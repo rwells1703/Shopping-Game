@@ -1,5 +1,7 @@
 package check.out.game.maingame.nonfermions;
 
+import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.fermions.Projectile;
 import com.badlogic.gdx.InputProcessor;
 
 public class InputCore implements InputProcessor {
@@ -41,11 +43,8 @@ public class InputCore implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        if(amount==1){
-            System.out.println(amount + " DOWN");
-        }else if(amount==-1){
-            System.out.println(amount + " UP");
-        }
+        Projectile.SELECTED_TYPE += amount;
+        Projectile.SELECTED_TYPE = Projectile.SELECTED_TYPE%ConstShop.HOTBAR_MAX;
         return true;
     }
 }
