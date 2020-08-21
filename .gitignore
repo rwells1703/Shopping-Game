@@ -69,6 +69,14 @@ com_crashlytics_export_strings.xml
 /ios/build/
 /ios-moe/build/
 
+/out/
+/android/out/
+/core/out/
+/desktop/out/
+/html/out/
+/ios/out/
+/ios-moe/out/
+
 /nbbuild/
 /android/nbbuild/
 /core/nbbuild/

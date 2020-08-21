@@ -48,18 +48,18 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 //        }
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            if (player.cargo.quantity.get(Projectile.SELECTED_TYPE, 0) > 0) {
+            try {
+                int type = Projectile.SELECTED_TYPE;
+                player.removeOneOf(type);
+
                 Vector2 projectilePos = new Vector2(playerPos.x - (float) (1 * Math.sin(playerAngle)), playerPos.y + (float) (1 * Math.cos(playerAngle)));
                 Vector2 projectileVel = new Vector2(5 * (float) Math.cos(playerAngle + Math.PI / 2), 5 * (float) Math.sin(playerAngle + Math.PI / 2));
-                int type = Projectile.SELECTED_TYPE;
 
                 launchProjectile((NebulaShop) nebula, projectilePos, projectileVel, type);
+            } catch (IllegalArgumentException e) {
 
-                player.cargo.removeOneOf(type);
             }
-
         }
-
     }
 
     private void launchProjectile(NebulaShop nebulaShop, Vector2 projectilePos, Vector2 projectileVel, int type) {
