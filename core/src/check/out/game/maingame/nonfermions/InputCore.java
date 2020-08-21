@@ -41,7 +41,11 @@ public class InputCore implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        System.out.println(amount == -1);
+        if(amount==1){
+            System.out.println(amount + " DOWN");
+        }else if(amount==-1){
+            System.out.println(amount + " UP");
+        }
         return true;
     }
 }

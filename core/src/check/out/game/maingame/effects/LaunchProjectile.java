@@ -4,6 +4,7 @@ import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Projectile;
 import check.out.game.maingame.fermions.flooring.IceRing;
+import check.out.game.maingame.nonfermions.InputCore;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -41,11 +42,8 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 
         //TODO scrolling not working properly - might be my scroll wheel is dodgy?
 //        Gdx.input.setInputProcessor(new InputCore());
-//        if(Gdx.input.getInputProcessor().scrolled(1)){
-////            System.out.println("down");
-//        }else if(Gdx.input.getInputProcessor().scrolled(-1)){
-//            System.out.println("up");
-//        }
+//        Gdx.input.getInputProcessor().scrolled(1);
+//        Gdx.input.getInputProcessor().scrolled(-1);
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             try {
