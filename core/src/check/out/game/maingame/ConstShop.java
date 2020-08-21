@@ -8,6 +8,7 @@ public class ConstShop {
         EP_LAUNCH_PROJECTILE =  0x0040_0100,
         EP_PHYSICS_STEP =       0x0050_0100,
         EP_GRAVITY =            0x0050_0200,
+        EP_ACTION_ON_LANDING =  0x0050_0300,
         EP_SPOTLIGHT =          0x0070_0100,
         EP_DRAW =               0x0070_0200;
 
