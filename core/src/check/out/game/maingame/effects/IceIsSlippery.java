@@ -28,8 +28,13 @@ public class IceIsSlippery extends LifeCycleImplementation implements Effect {
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
         Vector2 addedSlipperyVector = new Vector2(0, 0);
+        IceRing iceRing = this.iceRing.getPointeeCast();
+        if (iceRing == null) {//Remove this if the ice ring is gone.
+            nebula.effects().remove(this);
+            return;
+        }
         //Currently, slipperiness is applying a force in the direction of motion to counteract friction. Hmm, is there something better?
-        for (Shopper shopper : iceRing.<IceRing>getPointeeCast().standingOn) {
+        for (Shopper shopper : iceRing.standingOn) {
             addedSlipperyVector.set(shopper.getBody().getLinearVelocity());
             addedSlipperyVector.setLength2(ConstShop.ICE_THRUST_2);
 //            addedSlipperyVector.set(ConstShop.ICE_THRUST_2,0);

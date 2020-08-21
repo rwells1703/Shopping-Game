@@ -8,6 +8,7 @@ public class ConstShop {
         EP_LAUNCH_PROJECTILE =  0x0040_0100,
         EP_PHYSICS_STEP =       0x0050_0100,
         EP_GRAVITY =            0x0050_0200,
+        EP_ACTION_ON_LANDING =  0x0050_0300,
         EP_SPOTLIGHT =          0x0070_0100,
         EP_DRAW =               0x0070_0200;
 
@@ -27,24 +28,26 @@ public class ConstShop {
         CP_SHOPPER_SHOPPER_CRASH =      0x00_00_00_40;
 
     public static final int //Fermion set bits - use bitwise ORs to be in a set union.
-        FB_SHOPPER =            1 << 0,
-        FB_TERRAIN =            1 << 1,
-        FB_PROJECTILE =         1 << 2,
-        FB_COLLECTIBLE =        1 << 3,
-        FB_FLOORING =           1 << 4;
+            FB_SHOPPER          =1<<0,
+            FB_TERRAIN          =1<<1,
+            FB_PROJECTILE       =1<<2,
+            FB_COLLECTIBLE      =1<<3,
+            FB_FLOORING         =1<<4;
+
+    public static final float //Movement Constant.
+        SHOPPERTORQUEFACTOR        = 3f,
+        SHOPPERTHRUSTFACTOR        = 300f,
+        SHOPPERBRAKEFACTOR         = 170f,
+        SHOPPERLINEARDAMPING       = 3,
+        SHOPPERLINEARDAMPINGDRIFT  = 4,
+        SHOPPERANGULARDAMPING      = 10f,
+        SHOPPERANGULARDAMPINGDRIFT = 7f,
+        SHOPPEREMPTYDENISTY        = 1.4f,
+        MASSLINEARDAMPINGFACTOR    = 0.3f,
+        MASSANGULARDAMPINGFACTOR   = 0.15f;
 
     public static final float
         SHELF_UNIT_SIZE = 1f;
-
-    public static final float //Movement Constant.
-        SHOPPERTORQUEFACTOR =           3f,
-        SHOPPERTHRUSTFACTOR =           300f,
-        SHOPPERBRAKEFACTOR =            170f,
-        SHOPPERLINEARDAMPING =          3,
-        SHOPPERLINEARDAMPINGDRIFT =     6,
-        SHOPPERANGULARDAMPING =         10f,
-        SHOPPERANGULARDAMPINGDRIFT =    6f,
-        SHOPPEREMPTYDENISTY =           1.4f;
 
     public static final float
         OBNOXIOUS_THRUST_FACTOR_2 = SHOPPERTHRUSTFACTOR / 8f;

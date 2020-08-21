@@ -33,9 +33,12 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
      * shopper collects collectible.
      */
     private void collect(Nebula nebula, Player player, Collectible collectible) {
-        player.cargo.addOneOf(collectible.type);
-        nebula.fermions().remove(collectible);
-        ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
+        try {
+            player.addOneOf(collectible.type);
+            nebula.fermions().remove(collectible);
+            ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     private void trolleyShelfCrash(Nebula nebula) {
