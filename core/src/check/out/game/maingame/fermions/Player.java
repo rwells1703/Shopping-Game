@@ -10,19 +10,20 @@ public class Player extends Shopper {
     public Player(World world, Vector2 position) {
         super(world, position);
     }
-    public Cargo cargo=new Cargo(10);
 
-    public void updateMass(){
-        getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPING+cargo.getMass()*ConstShop.MASSLINEARDAMPINGFACTOR);
-        getBody().setAngularDamping(ConstShop.SHOPPERANGULARDAMPING+cargo.getMass()*ConstShop.MASSANGULARDAMPINGFACTOR);
+    public Cargo cargo = new Cargo(10);
+
+    public void updateMass() {
+        getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPING + cargo.getMass() * ConstShop.MASSLINEARDAMPINGFACTOR);
+        getBody().setAngularDamping(ConstShop.SHOPPERANGULARDAMPING + cargo.getMass() * ConstShop.MASSANGULARDAMPINGFACTOR);
     }
 
-    public void addOneOf(int type){
+    public void addOneOf(int type) {
         cargo.addOneOf(type);
         updateMass();
     }
 
-    public void removeOneOf(int type){
+    public void removeOneOf(int type) {
         cargo.removeOneOf(type);
         updateMass();
     }

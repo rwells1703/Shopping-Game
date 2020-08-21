@@ -13,7 +13,7 @@ import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
 import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Shopper;
-import check.out.game.maingame.fermions.flooring.IceRing;
+import check.out.game.maingame.nonfermions.InputCore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -152,12 +152,6 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
             list.add(() -> new Collectible(nebulaImplemented, new Vector2(MathUtils.random(MAP_WIDTH), MathUtils.random(MAP_HEIGHT)), type));
         }
         //###End add collectibles.
-
-
-        //###Begin add ice.
-        list.add(() -> new IceRing(nebulaImplemented, new Vector2(4, 16)));
-        //###End add ice.
-
 
         reader.readInShelving();
 
