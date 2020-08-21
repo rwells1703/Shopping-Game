@@ -38,7 +38,6 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/flat-earth/flat-earth-ui.json")); //need to change so access from game object
         stage = new Stage();
-//        Gdx.input.setInputProcessor(stage);
 
         final int tileDimension = Gdx.graphics.getWidth() / ConstShop.WIDTH;
 
