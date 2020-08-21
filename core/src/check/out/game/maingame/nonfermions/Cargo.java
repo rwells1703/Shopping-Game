@@ -22,7 +22,6 @@ public class Cargo {
         if (mass + massMap.get(type, 0) > maxMass) {
             throw new IllegalArgumentException();
         }
-        System.out.println(quantity);
         quantity.put(type, quantity.get(type, 0) + 1);
         mass += massMap.get(type, 0);
     }
@@ -31,7 +30,6 @@ public class Cargo {
         if (quantity.get(type, 0) <= 0) {
             throw new IllegalArgumentException();
         }
-        System.out.println(quantity);
         quantity.put(type, quantity.get(type, 1) - 1);
         mass -= massMap.get(type, 0);
     }

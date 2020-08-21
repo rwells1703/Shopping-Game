@@ -24,9 +24,9 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
-        FermionList list = nebula.fermions();
-
         Player player = ((NebulaShop) nebula).player.getPointeeCast();
+
+        if(player.cargo.mass==0) Projectile.SELECTED_TYPE = 0; //if no items in inventory, then scroll wheel doesn't have any effect
 
         Vector2 playerPos = player.getBody().getPosition();
         float playerAngle = player.getBody().getAngle();
