@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,7 +27,7 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
     private Texture hotbarTexture;
     private Texture entityTexture;
 
-    private Label[] hotbarLabels;
+    private Group hotbarLabels;
     private TextureRegion[] hotbarTextureRegions;
     private TextureRegion[] collectibleTextureRegions;
     private Skin skin;
@@ -43,16 +44,20 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
 
         final int tileDimension = Gdx.graphics.getWidth()/ ConstShop.WIDTH;
 
-        hotbarLabels = new Label[ConstShop.HOTBAR_MAX];
+        hotbarLabels = new Group();
+        System.out.println((hotbarLabels.getChildren().size));
+
         for(int i=0; i<ConstShop.HOTBAR_MAX; i++){
             Label label = new Label("", skin);
+            label.setFontScale(1.5f);
             label.setWidth(10f);
             label.setHeight(10f);
-            label.setPosition((float)(i+1.55)*tileDimension, (float)(0.92*tileDimension));
-            hotbarLabels[i] = label;
-            stage.addActor(label);
-
+            label.setPosition((float)(i+1.6)*tileDimension, (float)(0.9*tileDimension));
+            hotbarLabels.addActor(label);
         }
+        stage.addActor(hotbarLabels);
+        System.out.println((hotbarLabels.getChildren().size));
+
 
         hotbarTexture = new Texture(Gdx.files.internal("hotbar/hotbarTiles.png"));
         hotbarTextureRegions = new TextureRegion[]{
@@ -99,7 +104,7 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
 
         for(int i=0; i<ConstShop.HOTBAR_MAX; i++){
             int quantity = player.cargo.quantity.get(i, 0);
-            hotbarLabels[i].setText(quantity==0?"":Integer.toString(quantity));
+            ((Label)hotbarLabels.getChild(i)).setText(quantity==0?"":Integer.toString(quantity));
         }
 
         stage.act(deltaTime);
