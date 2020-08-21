@@ -20,13 +20,13 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
 
     @Override
     public void beginContact(Nebula nebula, Contact contact) {
-        Object A=contact.getFixtureA().getUserData();
-        Object B=contact.getFixtureB().getUserData();
+        Object A = contact.getFixtureA().getUserData();
+        Object B = contact.getFixtureB().getUserData();
 
-        if(A instanceof Player && B instanceof Collectible)
-            collect(nebula,(Player) A,(Collectible) B);
-        else if(B instanceof Player && A instanceof Collectible)
-            collect(nebula,(Player) B,(Collectible) A);
+        if (A instanceof Player && B instanceof Collectible)
+            collect(nebula, (Player) A, (Collectible) B);
+        else if (B instanceof Player && A instanceof Collectible)
+            collect(nebula, (Player) B, (Collectible) A);
     }
 
     /**
@@ -38,5 +38,10 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
             nebula.fermions().remove(collectible);
             ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
         }catch (IllegalArgumentException e){}
+    }
+
+    private void trolleyShelfCrash(Nebula nebula) {
+        int soundNumber = (int) (Math.random() * ((2 - 1) + 1)) + 1;
+        ((NebulaShop) nebula).soundEffectHandler.playSound("trolleyShelfCrash" + soundNumber);
     }
 }

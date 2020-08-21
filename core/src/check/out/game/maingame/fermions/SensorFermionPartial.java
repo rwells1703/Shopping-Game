@@ -14,38 +14,41 @@ public abstract class SensorFermionPartial extends LifeCycleImplementation imple
     protected Fixture sensor;
     private Vector2 position;
 
-    public Fixture getSensor(){return sensor;}
+    public SensorFermionPartial(NebulaShop nebula, Vector2 position) {
+        this.position = position;
+
+        Shape shape = getShape(position);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.isSensor = true;//Fixture is sensor - no physics is applied.
+
+        sensor = nebula.bodyForSensors.createFixture(fixtureDef);
+        sensor.setUserData(this);
+
+        shape.dispose();
+    }
+
+    public Fixture getSensor() {
+        return sensor;
+    }
 
     /**
      * Override to change shape, it will be disposed of.
      */
-    protected Shape getShape(Vector2 position){
-        CircleShape shape=new CircleShape();
+    protected Shape getShape(Vector2 position) {
+        CircleShape shape = new CircleShape();
         shape.setRadius(0.25f);
         shape.setPosition(position);
         return shape;
     }
 
-    public SensorFermionPartial(NebulaShop nebula, Vector2 position){
-        this.position = position;
-
-        Shape shape=getShape(position);
-
-        FixtureDef fixtureDef=new FixtureDef();
-        fixtureDef.shape=shape;
-        fixtureDef.isSensor=true;//Fixture is sensor - no physics is applied.
-
-        sensor=nebula.bodyForSensors.createFixture(fixtureDef);
-        sensor.setUserData(this);
-
-        shape.dispose();
-    }
     @Override
     public void dispose(Nebula nebula) {
-        ((NebulaShop)nebula).bodyForSensors.destroyFixture(sensor);
+        ((NebulaShop) nebula).bodyForSensors.destroyFixture(sensor);
     }
 
-    public Vector2 getPosition(){
+    public Vector2 getPosition() {
         return this.position;
     }
 }

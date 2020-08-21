@@ -1,6 +1,5 @@
 package check.out.game.maingame.nonfermions;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
@@ -10,21 +9,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SoundEffectHandler {
-    Map<String,Sound> soundSet;
+    Map<String, Sound> soundSet;
 
-    public SoundEffectHandler(){
+    public SoundEffectHandler() {
         soundSet = new HashMap<>();
         loadSoundFiles();
     }
 
-    protected void loadSoundFiles(){
+    protected void loadSoundFiles() {
         FileHandle file = Gdx.files.internal("sounds/fileNames.txt");
         String text = file.readString();
-        String[] fileNames = text.split("\n");
 
-        for(String id:fileNames) {
+        String[] fileNames = text.split(",");
+
+        for (String id : fileNames) {
             try {
-                id = id.substring(0,id.length()-1);
                 soundSet.put(id, Gdx.audio.newSound(Gdx.files.internal("sounds/" + id + ".wav")));
             } catch (GdxRuntimeException e) {
                 e.printStackTrace();
@@ -33,15 +32,15 @@ public class SoundEffectHandler {
         }
     }
 
-    public void playSound(String id){
-        if(soundSet.get(id)!=null) {
+    public void playSound(String id) {
+        if (soundSet.get(id) != null) {
             soundSet.get(id).play();
         }
     }
 
-    public void dispose(){
-        for(Map.Entry<String, Sound> entry: soundSet.entrySet()){
-            if(entry.getValue()!=null) {
+    public void dispose() {
+        for (Map.Entry<String, Sound> entry : soundSet.entrySet()) {
+            if (entry.getValue() != null) {
                 entry.getValue().dispose();
             }
         }

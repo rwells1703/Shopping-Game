@@ -14,16 +14,18 @@ import fernebon.core.util.LifeCycleImplementation;
  * If possible it will make the player the centre of the viewable screen, but will never point outside of X_MIN,X_MAX,Y_MIN,Y_MAX.
  */
 public class Spotlight extends LifeCycleImplementation implements Effect {
+    private final float X_MIN, X_MAX, Y_MIN, Y_MAX;
     private Camera camera;
-    private final float X_MIN,X_MAX,Y_MIN,Y_MAX;
-    public Spotlight(Camera camera, float mapRightmost, float mapTopmost){
-        this.camera=camera;
 
-        X_MIN=camera.viewportWidth/2f;
-        Y_MIN=camera.viewportHeight/2f;
-        X_MAX= mapRightmost -X_MIN;
-        Y_MAX=mapTopmost-Y_MIN;
+    public Spotlight(Camera camera, float mapRightmost, float mapTopmost) {
+        this.camera = camera;
+
+        X_MIN = camera.viewportWidth / 2f;
+        Y_MIN = camera.viewportHeight / 2f;
+        X_MAX = mapRightmost - X_MIN;
+        Y_MAX = mapTopmost - Y_MIN;
     }
+
     @Override
     public int getPriority() {
         return ConstShop.EP_SPOTLIGHT;
@@ -32,12 +34,12 @@ public class Spotlight extends LifeCycleImplementation implements Effect {
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
         Vector2 star = ((NebulaShop) nebula).player.<Shopper>getPointeeCast().getBody().getPosition();
-        float x=star.x, y= star.y;
-        if(x<X_MIN)         x=X_MIN;
-        else if(x>X_MAX)    x=X_MAX;
-        if(y<Y_MIN)         y=Y_MIN;
-        else if(y>Y_MAX)    y=Y_MAX;
-        camera.position.set(x,y,0);
+        float x = star.x, y = star.y;
+        if (x < X_MIN) x = X_MIN;
+        else if (x > X_MAX) x = X_MAX;
+        if (y < Y_MIN) y = Y_MIN;
+        else if (y > Y_MAX) y = Y_MAX;
+        camera.position.set(x, y, 0);
         camera.update();
     }
 }

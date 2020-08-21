@@ -10,27 +10,26 @@ import fernebon.b2d.util.fermions.BodiedFermionPartial;
 import fernebon.core.base.fermion.Fermion;
 
 public abstract class Terrain extends BodiedFermionPartial implements Fermion {
-  /**
-   * @param shape This is automatically disposed of.
-   */
-  protected void setupBody(World world, float x, float y, Shape shape, BodyType bodyType, int linearDamping){
-    BodyDef bodyDef = new BodyDef();
-    bodyDef.type = bodyType;
-    bodyDef.position.set(x,y);
-    bodyDef.linearDamping = linearDamping;
+    /**
+     * @param shape This is automatically disposed of.
+     */
+    protected void setupBody(World world, float x, float y, Shape shape, BodyType bodyType, int linearDamping) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = bodyType;
+        bodyDef.position.set(x, y);
+        bodyDef.linearDamping = linearDamping;
 
-    body = world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
 
-    FixtureDef fixtureDef = new FixtureDef();
-    fixtureDef.shape = shape;
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
 
-    body.createFixture(fixtureDef);
-    body.setUserData(this);
+        body.createFixture(fixtureDef).setUserData(this);
 
-    shape.dispose();
-  }
+        shape.dispose();
+    }
 
-  public int getSetMask() {
-    return ConstShop.FB_TERRAIN;
-  }
+    public int getSetMask() {
+        return ConstShop.FB_TERRAIN;
+    }
 }

@@ -10,25 +10,26 @@ import fernebon.core.base.Pointer;
 import fernebon.core.base.fermion.Fermion;
 
 public class NebulaShop extends NebulaB2DEasyOverride {
-
     public SoundEffectHandler soundEffectHandler;
+    public Pointer<Fermion> player;
+    public Body bodyForSensors;
 
     @Override
     public void create() {
         super.create();
 
         //Create the body to be used by sensors.
-        BodyDef bodyDef=new BodyDef();
+        BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(0,0);
-        bodyForSensors=world.createBody(bodyDef);
+        bodyDef.position.set(0, 0);
+        bodyForSensors = world.createBody(bodyDef);
 
         soundEffectHandler = new SoundEffectHandler();
     }
 
     @Override
     protected Vector2 getGravity() {
-        return new Vector2(0,0);
+        return new Vector2(0, 0);
     }
 
     @Override
@@ -36,15 +37,14 @@ public class NebulaShop extends NebulaB2DEasyOverride {
         return new int[]{
                 ConstShop.FB_SHOPPER,
                 ConstShop.FB_COLLECTIBLE,
+                ConstShop.FB_FLOORING,
         };
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
         soundEffectHandler.dispose();
         super.dispose();
     }
-
-    public Pointer<Fermion> player;
-    public Body bodyForSensors;
+    //Todo shared SpriteBatch.
 }
