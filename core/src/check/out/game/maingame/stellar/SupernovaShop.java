@@ -58,6 +58,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
+        nebulaImplemented.mainCamera = camera;
+
         addFermions(nebulaImplemented, reader);
         addEffects(nebulaImplemented, camera);
         addArtists(nebulaImplemented, camera, map);
