@@ -21,7 +21,7 @@ public class SoundEffectHandler {
         FileHandle file = Gdx.files.internal("sounds/fileNames.txt");
         String text = file.readString();
         String[] fileNames = text.split("\n");
-        
+
         for(String id:fileNames) {
             try {
                 id = id.substring(0,id.length()-1);
