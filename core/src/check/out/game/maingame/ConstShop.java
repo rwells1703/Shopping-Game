@@ -56,6 +56,10 @@ public class ConstShop {
         ICE_THRUST_2 =          SHOPPERTHRUSTFACTOR / 16f,
         ICE_RING_RADIUS =       SHELF_UNIT_SIZE * 4;
 
+    public static final float
+        EXPLOSION_MAX_RADIUS = SHELF_UNIT_SIZE*10,
+        EXPLOSIVE_COEFFICIENT = 300;
+
     public static final int
         NUM_PROJECTILE_TYPES = 3;
     public static final int 

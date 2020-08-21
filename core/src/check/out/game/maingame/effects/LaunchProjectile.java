@@ -3,8 +3,8 @@ package check.out.game.maingame.effects;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Projectile;
-import check.out.game.maingame.fermions.flooring.IceRing;
-import check.out.game.maingame.nonfermions.InputCore;
+import check.out.game.maingame.landingactions.LandingExplosive;
+import check.out.game.maingame.landingactions.LandingIceCream;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -45,7 +45,7 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 //        Gdx.input.getInputProcessor().scrolled(1);
 //        Gdx.input.getInputProcessor().scrolled(-1);
 
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             try {
                 int type = Projectile.SELECTED_TYPE;
                 player.removeOneOf(type);
@@ -61,24 +61,22 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
     }
 
     private void launchProjectile(NebulaShop nebulaShop, Vector2 projectilePos, Vector2 projectileVel, int type) {
-        if (type == 2) {//Ice cream.
-            //Add the ice cream.
-            Pointer<Fermion> iceCream = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
-            nebulaShop.effects().add(
-                    () -> new ProjectileCausesActionOnLanding(iceCream,//Add an effect to make it so that when the ice cream lands, it is removed and a functioning ice ring appears.
-                            (Nebula nebula, Pointer<Fermion> projectilePointer) -> {
-                                Projectile projectile = projectilePointer.getPointeeCast();
-                                Vector2 position = new Vector2(projectile.getBody().getPosition());
-                                nebula.effects().add(() -> new IceIsSlippery(
-                                        nebula.fermions().addWithPointer(() -> new IceRing((NebulaShop) nebula, position))
-                                ));//Hmm, can I replace this with something more reusable (like can make black hole,...)?
-                                nebula.fermions().remove(projectile);//Comment this out to make the splattered ice cream not disappear.
-                                return true;
-                            }
-                    )
-            );
-        } else {
-            nebulaShop.fermions().add(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+        switch (type) {
+            case 2://Ice cream.
+                //Add the ice cream.
+                Pointer<Fermion> pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+                nebulaShop.effects().add(//Add an effect to make it so that when the ice cream lands, it is removed and a functioning ice ring appears.
+                        () -> new ProjectileCausesActionOnLanding(pointer, new LandingIceCream())
+                );
+                break;
+            case 1:
+                pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+                nebulaShop.effects().add(
+                        () -> new ProjectileCausesActionOnLanding(pointer, new LandingExplosive())
+                );
+                break;
+            default:
+                nebulaShop.fermions().add(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
         }
     }
 }
