@@ -60,4 +60,7 @@ public class ConstShop {
 
     public static final int
         HOTBAR_MAX = 5;
+
+    public static final int WIDTH = 8;
+//    public static final int HEIGHT = ;
 }
