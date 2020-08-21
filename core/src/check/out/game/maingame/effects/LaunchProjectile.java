@@ -39,13 +39,9 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
             Projectile.SELECTED_TYPE = 2;
         }
 
+        Gdx.input.setInputProcessor(new InputCore()); //for scrolling
 
-        //TODO scrolling not working properly - might be my scroll wheel is dodgy?
-//        Gdx.input.setInputProcessor(new InputCore());
-//        Gdx.input.getInputProcessor().scrolled(1);
-//        Gdx.input.getInputProcessor().scrolled(-1);
-
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             try {
                 int type = Projectile.SELECTED_TYPE;
                 player.removeOneOf(type);
