@@ -3,6 +3,8 @@ package check.out.game.maingame.effects;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Player;
 import check.out.game.maingame.fermions.Projectile;
+import check.out.game.maingame.landingactions.LandingAction;
+import check.out.game.maingame.landingactions.LandingBeans;
 import check.out.game.maingame.landingactions.LandingExplosive;
 import check.out.game.maingame.landingactions.LandingIceCream;
 import check.out.game.maingame.nonfermions.InputCore;
@@ -64,22 +66,30 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
     }
 
     private void launchProjectile(NebulaShop nebulaShop, Vector2 projectilePos, Vector2 projectileVel, int type) {
+        if (hasAction(type)) {//This is for if the projectile has a landing action.
+            Pointer<Fermion> pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+            nebulaShop.effects().add(
+                    () -> new ProjectileCausesActionOnLanding(pointer, getAction(type))
+            );
+        } else {//This is for if the projectile has no landing action.
+            nebulaShop.fermions().add(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+        }
+    }
+
+    private boolean hasAction(int type) {
+        return (0 <= type && type <= 2);
+    }
+
+    private LandingAction getAction(int type) {
         switch (type) {
+            case 0://Beans.
+                return new LandingBeans();
+            case 1://Banana
+                return new LandingExplosive();
             case 2://Ice cream.
-                //Add the ice cream.
-                Pointer<Fermion> pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
-                nebulaShop.effects().add(//Add an effect to make it so that when the ice cream lands, it is removed and a functioning ice ring appears.
-                        () -> new ProjectileCausesActionOnLanding(pointer, new LandingIceCream())
-                );
-                break;
-            case 1:
-                pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
-                nebulaShop.effects().add(
-                        () -> new ProjectileCausesActionOnLanding(pointer, new LandingExplosive())
-                );
-                break;
+                return new LandingIceCream();
             default:
-                nebulaShop.fermions().add(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+                throw new IllegalArgumentException("There is no action for projectiles of type#" + type + ".");
         }
     }
 }
