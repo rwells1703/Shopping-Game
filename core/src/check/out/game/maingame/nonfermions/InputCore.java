@@ -45,6 +45,7 @@ public class InputCore implements InputProcessor {
     public boolean scrolled(int amount) {
         Projectile.SELECTED_TYPE += amount;
         Projectile.SELECTED_TYPE = Projectile.SELECTED_TYPE%ConstShop.HOTBAR_MAX;
+        if(Projectile.SELECTED_TYPE<0) Projectile.SELECTED_TYPE+=ConstShop.HOTBAR_MAX;
         return true;
     }
 }

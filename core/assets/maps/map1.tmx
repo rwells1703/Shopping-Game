@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="128" tileheight="128" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="128" tileheight="128" infinite="0" nextlayerid="9" nextobjectid="16">
  <tileset firstgid="1" source="../tile-sets/tileset.tsx"/>
  <layer id="2" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztwwEJAAAMBKEr8P3rrsdQcNVUVVXV1w+QYDQB
   </data>
  </layer>
+ <objectgroup id="8" name="collectibles">
+  <object id="14" name="banana" x="238.092" y="3558.91">
+   <point/>
+  </object>
+  <object id="15" name="beans" x="491.178" y="3812">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="shoppers">
+  <properties>
+   <property name="type" value="shopper"/>
+  </properties>
+  <object id="2" name="timbo" x="832" y="3792">
+   <point/>
+  </object>
+  <object id="5" x="808" y="3288">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="1" name="shelves" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztl2EOgjAMhTtlsB9mZ/AoHoWjeBSOwlE4ijVhpjzYGMI2SWzS6Irso115m5aItHAL45TOrI4/7ySMxy1lMmYNufk3zrkkH1gzvoFxbj7mr4geevSGqHffjYjXY9zF+J5ezlGJmpeovxZMiM/4TQJ+XZivT1R/1qRW9lSo37An3Rj7r9nAT2Ey/2ql/qn5XJuhJB/ii3x+xvc7M9uvzEqM73sucX5p/c/KVzuec4v++WyPLsXmL/vO0rQHfb11FdqD7rTJgh75+HCtjcythfGwEOv+/OP4aqrhh/FlL6kAH/R88rsLz4mxSmh+iB9rxjPfVvuW76tnjMHa4fvvPeNKtzvybwL8I81p2fgf73NmklqUY/8JrVUOvm/vd3x33kzlFs6neO0FDBlnxQ==

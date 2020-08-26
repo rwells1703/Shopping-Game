@@ -153,15 +153,15 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         //###End add collectibles.
 
         reader.readInShelving();
+        reader.readInObjects();
 
         //###Begin add obnoxious.
-        EffectList effectList = nebulaImplemented.effects();
-        for (int i = 1; i <= 5; i++) {
-            int finalI = i;
-            effectList.add(() -> new ObnoxiousRamsPlayer(
-                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(), new Vector2(finalI * 4, finalI * 4)))
-            ));
-        }
+//        EffectList effectList = nebulaImplemented.effects();
+//        for (Vector2 position:){
+//            effectList.add(() -> new ObnoxiousRamsPlayer(
+//                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(), position))
+//            ));
+//        }
         //###End add obnoxious.
     }
 
