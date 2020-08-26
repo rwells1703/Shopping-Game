@@ -69,5 +69,6 @@ public class ConstShop {
         HOTBAR_MAX = 5;
 
     public static final int WIDTH = 8;
+    public static final int TILE_WIDTH = 128;
 //    public static final int HEIGHT = ;
 }

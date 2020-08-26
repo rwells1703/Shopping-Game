@@ -148,7 +148,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         for (int i = 0; i < 30; i++) {
             int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
 //            System.out.println(type+1);
-            list.add(() -> new Collectible(nebulaImplemented, new Vector2(MathUtils.random(MAP_WIDTH), MathUtils.random(MAP_HEIGHT)), type));
+//            list.add(() -> new Collectible(nebulaImplemented, new Vector2(MathUtils.random(MAP_WIDTH), MathUtils.random(MAP_HEIGHT)), type));
         }
         //###End add collectibles.
 

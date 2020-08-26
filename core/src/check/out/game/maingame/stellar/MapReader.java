@@ -21,6 +21,7 @@ import fernebon.core.base.fermion.FermionList;
 import java.util.Random;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
+import static check.out.game.maingame.ConstShop.TILE_WIDTH;
 
 public class MapReader {
     private TiledMap map;
@@ -170,9 +171,7 @@ public class MapReader {
         for(MapObject shopper : shoppers){
             System.out.println(shopper.getName());
             MapProperties properties = shopper.getProperties();
-
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
-
             effectList.add(() -> new ObnoxiousRamsPlayer(
                     this.fermionlist.addWithPointer(() -> new Shopper(nebula.world(), pixelToCoord(position)))
             ));
@@ -182,18 +181,23 @@ public class MapReader {
     private void addCollectibles(MapObjects collectibles) {
         Random rnd = new Random(System.currentTimeMillis());
         for(MapObject collectible : collectibles){
-            System.out.println(collectible.getName());
+//            System.out.println(collectible.getName());
             int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
             MapProperties properties = collectible.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
-            System.out.println(position);
+//            System.out.println(pixelToCoord(position));
             fermionlist.add(() -> new Collectible(nebula, pixelToCoord(position), type));
         }
     }
 
+
+
     private Vector2 pixelToCoord(Vector2 pixelCoords){
-        return pixelCoords.scl((float)ConstShop.WIDTH/(float)Gdx.graphics.getWidth());
+//        System.out.println(Gdx.graphics.);
+//        return new Vector2(pixelCoords.x/(ConstShop.TILE_WIDTH), (pixelCoords.y)*factor);
+        return pixelCoords.scl(1/(float)TILE_WIDTH);
     }
+
 
 
 }
