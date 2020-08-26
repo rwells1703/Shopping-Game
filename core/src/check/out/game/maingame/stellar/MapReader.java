@@ -5,16 +5,12 @@ import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
 import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Shopper;
 import check.out.game.maingame.fermions.TerrainStatic;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.org.apache.bcel.internal.Const;
 import fernebon.core.base.effect.EffectList;
 import fernebon.core.base.fermion.FermionList;
 
@@ -42,7 +38,7 @@ public class MapReader {
 //        checkReadIn(hasShelf);
     }
 
-    public void readInObjects(){
+    public void readInObjects() {
         MapObjects shoppers = map.getLayers().get("shoppers").getObjects();
         addShoppers(shoppers);
         MapObjects collectibles = map.getLayers().get("collectibles").getObjects();
@@ -168,7 +164,7 @@ public class MapReader {
     private void addShoppers(MapObjects shoppers) {
         EffectList effectList = nebula.effects();
 
-        for(MapObject shopper : shoppers){
+        for (MapObject shopper : shoppers) {
             System.out.println(shopper.getName());
             MapProperties properties = shopper.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
@@ -180,24 +176,15 @@ public class MapReader {
 
     private void addCollectibles(MapObjects collectibles) {
         Random rnd = new Random(System.currentTimeMillis());
-        for(MapObject collectible : collectibles){
-//            System.out.println(collectible.getName());
+        for (MapObject collectible : collectibles) {
             int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
             MapProperties properties = collectible.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
-//            System.out.println(pixelToCoord(position));
             fermionlist.add(() -> new Collectible(nebula, pixelToCoord(position), type));
         }
     }
 
-
-
-    private Vector2 pixelToCoord(Vector2 pixelCoords){
-//        System.out.println(Gdx.graphics.);
-//        return new Vector2(pixelCoords.x/(ConstShop.TILE_WIDTH), (pixelCoords.y)*factor);
-        return pixelCoords.scl(1/(float)TILE_WIDTH);
+    private Vector2 pixelToCoord(Vector2 pixelCoords) {
+        return pixelCoords.scl(1 / (float) TILE_WIDTH);
     }
-
-
-
 }
