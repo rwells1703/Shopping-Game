@@ -14,7 +14,7 @@ import fernebon.core.util.LifeCycleImplementation;
  * Effect to make a ring of ice slippery.
  */
 public class IceIsSlippery extends LifeCycleImplementation implements Effect {
-    private Pointer<Fermion> iceRing;//Points to the ice ring. Should never be null, as this effect is disposed of by the iceRing when the iceRing is disposed of.
+    private Pointer<Fermion> iceRing;//Points to the ice ring.
 
     public IceIsSlippery(Pointer<Fermion> iceRing) {
         this.iceRing = iceRing;
