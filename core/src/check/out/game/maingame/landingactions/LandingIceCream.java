@@ -20,7 +20,7 @@ public class LandingIceCream implements LandingAction {
         nebula.effects().add(() -> new IceIsSlippery(
                 nebula.fermions().addWithPointer(() -> new IceRing((NebulaShop) nebula, position))
         ));//Hmm, can I replace this with something more reusable (like can make black hole,...)?
-        nebula.fermions().remove(projectile);//Comment this out to make the splattered ice cream not disappear.
+//        nebula.fermions().remove(projectile);//Uncomment this to make the splattered ice cream disappear.
         return true;
     }
 }
