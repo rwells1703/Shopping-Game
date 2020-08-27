@@ -1,21 +1,32 @@
 package check.out.game.maingame.stellar;
 
+import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.effects.ai.EnemyMovementAI;
+import check.out.game.maingame.fermions.Collectible;
+import check.out.game.maingame.fermions.Enemy;
 import check.out.game.maingame.fermions.TerrainStatic;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import fernebon.core.base.effect.EffectList;
+import fernebon.core.base.fermion.FermionList;
+import java.util.Random;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
+import static check.out.game.maingame.ConstShop.TILE_WIDTH;
 
 public class MapReader {
     private TiledMap map;
     private NebulaShop nebula;
+    private FermionList fermionlist;
 
     public MapReader(NebulaShop nebula, TiledMap map) {
         this.nebula = nebula;
         this.map = map;
+        this.fermionlist = nebula.fermions();
     }
 
     public void readInShelving() {
@@ -24,6 +35,15 @@ public class MapReader {
         readInVerticalShelving(hasShelf);
         readInHorizontalShelving(hasShelf);
 //        checkReadIn(hasShelf);
+    }
+
+    public void readInObjects() {
+        MapObjects shoppers = map.getLayers().get("shoppers").getObjects();
+        addShoppers(shoppers);
+        MapObjects collectibles = map.getLayers().get("collectibles").getObjects();
+        addCollectibles(collectibles);
+        MapObjects waypoints = map.getLayers().get("waypoints").getObjects();
+        addWaypoints(waypoints);
     }
 
     public float getMapWidth() {
@@ -60,6 +80,7 @@ public class MapReader {
 
         for (int left = 0; left < WIDTH; left++) {
             for (int y = 0; y < HEIGHT; y++) {
+
                 if (makingBlock) {
                     if (hasShelf[left][y]) {
                         hasShelf[left][y] = false;
@@ -140,18 +161,38 @@ public class MapReader {
         nebula.fermions().add(() -> new TerrainStatic(nebula.world(), x, y, width, height));
     }
 
-    public Vector2[] readInWaypoints() {
-        map.getProperties();
-
-        MapObjects waypointObjects = map.getLayers().get("waypoints").getObjects();
-
-        Vector2[] waypoints = new Vector2[waypointObjects.getCount()];
+    public void addWaypoints(MapObjects waypointObjects) {
+        nebula.waypoints = new Vector2[waypointObjects.getCount()];
 
         for (int i = 0; i < waypointObjects.getCount(); i++) {
             MapProperties properties = waypointObjects.get(i).getProperties();
-            waypoints[i] = new Vector2((float) properties.get("x") / (int) map.getProperties().get("tilewidth"), (float) properties.get("y") / (int) map.getProperties().get("tileheight"));
+            nebula.waypoints[i] = new Vector2((float) properties.get("x") / (int) map.getProperties().get("tilewidth"), (float) properties.get("y") / (int) map.getProperties().get("tileheight"));
         }
+    }
 
-        return waypoints;
+    private void addShoppers(MapObjects shoppers) {
+        EffectList effectList = nebula.effects();
+
+        for (MapObject shopper : shoppers) {
+            MapProperties properties = shopper.getProperties();
+            Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
+            effectList.add(() -> new EnemyMovementAI(
+                    fermionlist.addWithPointer(() -> new Enemy(nebula.world(), pixelToCoord(position)))
+            ));
+        }
+    }
+
+    private void addCollectibles(MapObjects collectibles) {
+        Random rnd = new Random(System.currentTimeMillis());
+        for (MapObject collectible : collectibles) {
+            int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
+            MapProperties properties = collectible.getProperties();
+            Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
+            fermionlist.add(() -> new Collectible(nebula, pixelToCoord(position), type));
+        }
+    }
+
+    private Vector2 pixelToCoord(Vector2 pixelCoords) {
+        return pixelCoords.scl(1 / (float) TILE_WIDTH);
     }
 }

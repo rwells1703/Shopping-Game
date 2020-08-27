@@ -145,26 +145,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
 
         Random rnd = new Random(System.currentTimeMillis());
 
-        //###Begin add collectibles.
-        for (int i = 0; i < 30; i++) {
-            int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
-//            System.out.println(type+1);
-            list.add(() -> new Collectible(nebulaImplemented, new Vector2(MathUtils.random(MAP_WIDTH), MathUtils.random(MAP_HEIGHT)), type));
-        }
-        //###End add collectibles.
-
         reader.readInShelving();
-        nebulaImplemented.waypoints = reader.readInWaypoints();
-
-        //###Begin add obnoxious.
-        EffectList effectList = nebulaImplemented.effects();
-        for (int i = 1; i <= 5; i++) {
-            int finalI = i;
-            effectList.add(() -> new EnemyMovementAI(
-                    list.addWithPointer(() -> new Enemy(nebulaImplemented.world(), new Vector2(finalI * 4, finalI * 4)))
-            ));
-        }
-        //###End add obnoxious.
+        reader.readInObjects();
     }
 
     @Override

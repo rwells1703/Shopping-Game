@@ -4,6 +4,7 @@ public class ConstShop {
     public static final int //Effect priorities - called in ascending order.
         EP_AI_KEYBOARD =        0x0010_0100,
         EP_SLIPPERY_ICE =       0x0020_0100,
+        EP_GLOOPY_BEANS =       0x0020_0110,
         EP_MOVE_SHOPPERS =      0x0030_0100,
         EP_LAUNCH_PROJECTILE =  0x0040_0100,
         EP_PHYSICS_STEP =       0x0050_0100,
@@ -55,7 +56,16 @@ public class ConstShop {
 
     public static final float
         ICE_THRUST_2 =          SHOPPERTHRUSTFACTOR / 16f,
-        ICE_RING_RADIUS =       SHELF_UNIT_SIZE * 4;
+        ICE_RING_RADIUS =       SHELF_UNIT_SIZE * 2.5f;
+
+    public static final float
+        BEAN_FORCE_DAMPING =    3f/8f,
+        BEAN_TORQUE_DAMPING =   3f/8f,
+        BEAN_RING_RADIUS =      SHELF_UNIT_SIZE * 2.5f;
+
+    public static final float
+        EXPLOSION_MAX_RADIUS = SHELF_UNIT_SIZE*10,
+        EXPLOSIVE_COEFFICIENT = 300;
 
     public static final int
         NUM_PROJECTILE_TYPES = 3;
@@ -66,6 +76,7 @@ public class ConstShop {
         HOTBAR_MAX = 5;
 
     public static final int WIDTH = 8;
+    public static final int TILE_WIDTH = 128;
 //    public static final int HEIGHT = ;
 
     public static final boolean DEBUG_DRAW_BODIES = false;

@@ -38,12 +38,10 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("skin/flat-earth/flat-earth-ui.json")); //need to change so access from game object
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
 
         final int tileDimension = Gdx.graphics.getWidth() / ConstShop.WIDTH;
 
         hotbarLabels = new Group();
-        System.out.println((hotbarLabels.getChildren().size));
 
         for (int i = 0; i < ConstShop.HOTBAR_MAX; i++) {
             Label label = new Label("", skin);
@@ -54,7 +52,6 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
             hotbarLabels.addActor(label);
         }
         stage.addActor(hotbarLabels);
-        System.out.println((hotbarLabels.getChildren().size));
 
 
         hotbarTexture = new Texture(Gdx.files.internal("hotbar/hotbarTiles.png"));
@@ -111,7 +108,7 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
 
     @Override
     public void dispose(Nebula nebula) {
-        Gdx.input.setInputProcessor(null);
+//        Gdx.input.setInputProcessor(null);
         stage.dispose();
         batch.dispose();
         entityTexture.dispose();

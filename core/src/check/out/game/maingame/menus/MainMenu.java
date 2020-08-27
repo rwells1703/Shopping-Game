@@ -1,5 +1,6 @@
 package check.out.game.maingame.menus;
 
+import check.out.game.MyGdxGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import check.out.game.MyGdxGame;
 
 public class MainMenu extends Menu {
     private Stage stage;

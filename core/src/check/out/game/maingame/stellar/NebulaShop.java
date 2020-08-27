@@ -12,11 +12,11 @@ import fernebon.core.base.Pointer;
 import fernebon.core.base.fermion.Fermion;
 
 public class NebulaShop extends NebulaB2DEasyOverride {
+    public Camera camera;
     public SoundEffectHandler soundEffectHandler;
     public Pointer<Fermion> player;
     public Body bodyForSensors;
     public Vector2[] waypoints;
-    public Camera camera;
     public RayCaster rayCaster;
 
     @Override

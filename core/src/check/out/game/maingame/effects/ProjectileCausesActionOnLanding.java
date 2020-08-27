@@ -2,6 +2,7 @@ package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Projectile;
+import check.out.game.maingame.landingactions.LandingAction;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.Pointer;
 import fernebon.core.base.effect.Effect;
@@ -43,18 +44,5 @@ public class ProjectileCausesActionOnLanding extends LifeCycleImplementation imp
     public void dispose(Nebula nebula) {//Dispose removes pointer, as it should be personal to this effect.
         Effect.super.dispose(nebula);
         nebula.fermions().removePointer(projectilePointer);
-    }
-
-    /**
-     * Action to take place when given projectile lands.
-     * Hmm, should this go in its own file?
-     */
-    public interface LandingAction {
-        /**
-         * Called when the projectile is in landed state, but still exists.
-         *
-         * @return True if should remove this ProjectileCausesActionOnLanding Effect.
-         */
-        boolean invoke(Nebula nebula, Pointer<Fermion> projectilePointer);
     }
 }
