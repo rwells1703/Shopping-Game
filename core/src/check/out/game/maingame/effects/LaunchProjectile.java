@@ -1,7 +1,7 @@
 package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.fermions.Projectile;
 import check.out.game.maingame.landingactions.LandingAction;
 import check.out.game.maingame.landingactions.LandingBeans;
@@ -60,7 +60,6 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
                 projectileVel.add(player.getBody().getLinearVelocity());
                 launchProjectile((NebulaShop) nebula, projectilePos, projectileVel, type);
             } catch (IllegalArgumentException e) {
-
             }
         }
     }

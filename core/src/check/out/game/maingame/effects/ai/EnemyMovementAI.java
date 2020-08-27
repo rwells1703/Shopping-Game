@@ -1,8 +1,8 @@
 package check.out.game.maingame.effects.ai;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Enemy;
-import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.fermions.shoppers.Enemy;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.core.base.Nebula;
@@ -65,10 +65,9 @@ public class EnemyMovementAI extends LifeCycleImplementation implements Effect {
                 if (possibleWaypointTargets.size() != 0) {
                     enemy.targetWaypointID = possibleWaypointTargets.get((int) (Math.random() * (possibleWaypointTargets.size())));
                 }
-
-                // If there are no waypoints in view, the target will remain the player (even though it is behind a wall)
             }
 
+            // If there are no waypoints in view, the target will remain the player (even though it is behind a wall)
             if (enemy.targetWaypointID == -1) {
                 enemy.controller.desiredForce = new Vector2(player.getBody().getPosition());
             } else {

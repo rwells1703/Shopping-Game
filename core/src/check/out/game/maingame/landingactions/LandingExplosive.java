@@ -2,7 +2,7 @@ package check.out.game.maingame.landingactions;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Projectile;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fernebon.core.base.Nebula;

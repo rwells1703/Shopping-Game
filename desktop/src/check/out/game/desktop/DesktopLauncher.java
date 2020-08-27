@@ -1,5 +1,6 @@
 package check.out.game.desktop;
 
+import check.out.game.maingame.ConstShop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import check.out.game.MyGdxGame;
@@ -9,7 +10,12 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
 		config.forceExit = false;
-		config.fullscreen = false;
+
+		if (ConstShop.FULLSCREEN) {
+			config.fullscreen = true;
+			config.height = 768;
+			config.width = 1366;
+		}
 
 		new LwjglApplication(new MyGdxGame(), config);
 

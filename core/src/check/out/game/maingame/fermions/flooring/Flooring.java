@@ -2,7 +2,7 @@ package check.out.game.maingame.fermions.flooring;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.SensorFermionPartial;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;

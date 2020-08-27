@@ -17,14 +17,16 @@ import static check.out.game.maingame.ConstShop.BEAN_RING_RADIUS;
 import static check.out.game.maingame.ConstShop.ICE_RING_RADIUS;
 
 public class FlooringHazardsDrawer extends LifeCycleImplementation implements Artist {
-    private Texture texture;
+    private Texture iceRingTexture;
+    private Texture beanRingTexture;
     private SpriteBatch batch;
     private Camera camera;
 
     public FlooringHazardsDrawer(Camera camera) {
         this.camera = camera;
         batch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("hazardTexture.png"));
+        iceRingTexture = new Texture(Gdx.files.internal("iceRing.png"));
+        beanRingTexture = new Texture(Gdx.files.internal("beanRing.png"));
     }
 
     @Override
@@ -41,10 +43,9 @@ public class FlooringHazardsDrawer extends LifeCycleImplementation implements Ar
         for (Flooring flooring : nebula.fermions().<Flooring>particles(ConstShop.FB_FLOORING)) {
             Vector2 position = flooring.position;
             if (flooring instanceof IceRing) {//Todo less "magic numbers" in srcX, srcWidth, etc.
-                batch.draw(texture, position.x - ICE_RING_RADIUS, position.y - ICE_RING_RADIUS, ICE_RING_RADIUS * 2, ICE_RING_RADIUS * 2, 0, 0, 128, 128, false, false);
-            }
-            if (flooring instanceof BeanRing) {
-                batch.draw(texture, position.x - ConstShop.BEAN_RING_RADIUS, position.y - BEAN_RING_RADIUS, BEAN_RING_RADIUS * 2, BEAN_RING_RADIUS * 2, 128, 0, 128, 128, false, false);
+                batch.draw(iceRingTexture, position.x - ICE_RING_RADIUS, position.y - ICE_RING_RADIUS, ICE_RING_RADIUS * 2, ICE_RING_RADIUS * 2, 0, 0, 128, 128, false, false);
+            } else if (flooring instanceof BeanRing) {
+                batch.draw(beanRingTexture, position.x - BEAN_RING_RADIUS, position.y - BEAN_RING_RADIUS, BEAN_RING_RADIUS * 2, BEAN_RING_RADIUS * 2, 0, 0, 128, 128, false, false);
             }
         }
 
@@ -54,6 +55,7 @@ public class FlooringHazardsDrawer extends LifeCycleImplementation implements Ar
     @Override
     public void dispose(Nebula nebula) {
         batch.dispose();
-        texture.dispose();
+        iceRingTexture.dispose();
+        beanRingTexture.dispose();
     }
 }

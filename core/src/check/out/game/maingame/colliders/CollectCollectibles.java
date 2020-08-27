@@ -2,7 +2,7 @@ package check.out.game.maingame.colliders;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Collectible;
-import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.fermions.Projectile;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -24,7 +24,7 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
         Object A = contact.getFixtureA().getUserData();
         Object B = contact.getFixtureB().getUserData();
 
-        if (A instanceof Player && B instanceof Collectible)
+        if (A instanceof Player&& B instanceof Collectible)
             collect(nebula, (Player) A, (Collectible) B);
         else if (B instanceof Player && A instanceof Collectible)
             collect(nebula, (Player) B, (Collectible) A);

@@ -1,7 +1,7 @@
 package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

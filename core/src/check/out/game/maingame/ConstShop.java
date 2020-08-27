@@ -31,10 +31,12 @@ public class ConstShop {
 
     public static final int //Fermion set bits - use bitwise ORs to be in a set union.
         FB_SHOPPER          =1<<0,
-        FB_TERRAIN          =1<<1,
-        FB_PROJECTILE       =1<<2,
-        FB_COLLECTIBLE      =1<<3,
-        FB_FLOORING         =1<<4;
+        FB_PERSON           =1<<1,
+        FB_TERRAIN          =1<<2,
+        FB_PROJECTILE       =1<<3,
+        FB_COLLECTIBLE      =1<<4,
+        FB_FLOORING         =1<<5;
+
 
     public static final float //Movement Constant.
         SHOPPERTORQUEFACTOR        = 3f,
@@ -82,4 +84,8 @@ public class ConstShop {
     public static final boolean DEBUG_DRAW_BODIES = false;
     public static final boolean DEBUG_DRAW_ACTIVE_RAYS = false;
     public static final boolean DEBUG_DRAW_WAYPOINT_RAYS = false;
+
+    public static boolean FULLSCREEN = false;
+
+    public static float VIEWPORT_HEIGHT = 8;
 }

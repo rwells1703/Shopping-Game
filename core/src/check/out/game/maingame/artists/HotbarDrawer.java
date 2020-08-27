@@ -1,7 +1,7 @@
 package check.out.game.maingame.artists;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.fermions.Projectile;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;

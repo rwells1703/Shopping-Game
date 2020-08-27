@@ -6,16 +6,12 @@ import check.out.game.maingame.colliders.CollectCollectibles;
 import check.out.game.maingame.colliders.ShopperShelfCrash;
 import check.out.game.maingame.colliders.ShopperShopperCrash;
 import check.out.game.maingame.effects.*;
-import check.out.game.maingame.effects.ai.EnemyMovementAI;
-import check.out.game.maingame.fermions.Collectible;
-import check.out.game.maingame.fermions.Enemy;
-import check.out.game.maingame.fermions.Player;
+import check.out.game.maingame.fermions.shoppers.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.b2d.base.collider.ColliderList;
 import fernebon.b2d.util.artists.DebugRenderer;
@@ -28,8 +24,6 @@ import fernebon.core.impl.SupernovaPartial;
 import fernebon.core.util.effects.DrawCaller;
 import fernebon.gdx.util.artists.ScreenClearer;
 
-import java.util.Random;
-
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     private float MAP_WIDTH = 20,
             MAP_HEIGHT = 15;
@@ -41,7 +35,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
 
     @Override
     protected void setupNebula(NebulaShop nebulaImplemented) {
-        final float VIEWPORT_HEIGHT = 6;//The height of the viewed part of the nebula.
+        final float VIEWPORT_HEIGHT = ConstShop.VIEWPORT_HEIGHT;//The height of the viewed part of the nebula.
 
         TiledMap map = new TmxMapLoader().load("maps/map1.tmx");
         MapReader reader = new MapReader(nebulaImplemented, map);
@@ -141,9 +135,7 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         FermionList list = nebulaImplemented.fermions();
 
         nebulaImplemented.player = list
-                .addWithPointer(() -> new Player(nebulaImplemented.world(), new Vector2(2, 2)));
-
-        Random rnd = new Random(System.currentTimeMillis());
+                .addWithPointer(() -> new Player(nebulaImplemented, new Vector2(2, 2)));
 
         reader.readInShelving();
         reader.readInObjects();

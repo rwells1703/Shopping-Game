@@ -1,7 +1,7 @@
 package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import check.out.game.maingame.fermions.flooring.IceRing;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.core.base.Nebula;

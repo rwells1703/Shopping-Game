@@ -3,8 +3,8 @@ package check.out.game.maingame.stellar;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.effects.ai.EnemyMovementAI;
 import check.out.game.maingame.fermions.Collectible;
-import check.out.game.maingame.fermions.Enemy;
 import check.out.game.maingame.fermions.TerrainStatic;
+import check.out.game.maingame.fermions.shoppers.Enemy;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.core.base.effect.EffectList;
 import fernebon.core.base.fermion.FermionList;
+
 import java.util.Random;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
@@ -177,7 +178,7 @@ public class MapReader {
             MapProperties properties = shopper.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
             effectList.add(() -> new EnemyMovementAI(
-                    fermionlist.addWithPointer(() -> new Enemy(nebula.world(), pixelToCoord(position)))
+                    fermionlist.addWithPointer(() -> new Enemy(nebula, pixelToCoord(position)))
             ));
         }
     }

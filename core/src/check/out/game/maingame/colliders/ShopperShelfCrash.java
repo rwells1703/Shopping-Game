@@ -1,7 +1,7 @@
 package check.out.game.maingame.colliders;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import check.out.game.maingame.fermions.TerrainStatic;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.physics.box2d.Contact;

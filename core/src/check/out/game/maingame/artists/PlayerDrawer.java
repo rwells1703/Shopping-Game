@@ -3,7 +3,7 @@ package check.out.game.maingame.artists;
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.fermions.Collectible;
 import check.out.game.maingame.fermions.Projectile;
-import check.out.game.maingame.fermions.Shopper;
+import check.out.game.maingame.fermions.shoppers.Shopper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +19,8 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
     private SpriteBatch batch;
 
     private Texture entityTexture;
-    private TextureRegion playerTextureRegion;
+    private TextureRegion shopperTrolleyTextureRegion;
+    private TextureRegion shopperPersonTextureRegion;
     private TextureRegion[] collectibleTextureRegions;
     private TextureRegion[] projectileTextureRegions;
 
@@ -28,7 +29,8 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
         batch = new SpriteBatch();
 
         entityTexture = new Texture(Gdx.files.internal("entityTexture.png"));
-        playerTextureRegion = new TextureRegion(entityTexture, 0, 0, 92, 128);
+        shopperTrolleyTextureRegion = new TextureRegion(entityTexture, 0, 0, 92, 128);
+        shopperPersonTextureRegion = new TextureRegion(entityTexture, 13, 136, 64, 64);
 
         collectibleTextureRegions = new TextureRegion[]{
                 new TextureRegion(entityTexture, 92, 0, 64, 64),
@@ -40,7 +42,6 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
                 new TextureRegion(entityTexture, 92, 64, 64, 64),
                 new TextureRegion(entityTexture, 156, 64, 64, 64),
                 new TextureRegion(entityTexture, 220, 64, 64, 64)
-
         };
     }
 
@@ -56,10 +57,13 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
         batch.begin();
 
         for (Shopper shopper : nebula.fermions().<Shopper>particles(ConstShop.FB_SHOPPER)) {
-            Vector2 pos = shopper.getBody().getPosition();
-            float angle = (float) (shopper.getBody().getAngle() * 180 / Math.PI);
-            batch.draw(playerTextureRegion, pos.x - 0.5f, pos.y - 0.5f, 0.5f, 0.5f, 1f, 1.25f, 1f, 1f, angle);
+            Vector2 trolleyPos = shopper.getBody().getPosition();
+            float trolleyAngle = (float) Math.toDegrees(shopper.getBody().getAngle());
+            batch.draw(shopperTrolleyTextureRegion, trolleyPos.x - 0.5f, trolleyPos.y - 0.5f, 0.5f, 0.5f, 1f, 1.25f, 1f, 1f, trolleyAngle);
 
+            Vector2 personPos = shopper.person.getBody().getPosition();
+            float personAngle = (float) Math.toDegrees(shopper.person.getBody().getAngle());
+            batch.draw(shopperPersonTextureRegion, personPos.x - 0.5f, personPos.y - 0.5f, 0.5f, 0.5f, 1f, 1f, 1f, 1f, personAngle);
         }
 
         for (Projectile projectile : nebula.fermions().<Projectile>particles(ConstShop.FB_PROJECTILE)) {
@@ -72,8 +76,6 @@ public class PlayerDrawer extends LifeCycleImplementation implements Artist {
                 region = collectibleTextureRegions[projectile.type];
             }
             batch.draw(region, pos.x - 0.25f, pos.y - 0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, angle);
-
-
         }
 
         for (Collectible collectible : nebula.fermions().<Collectible>particles(ConstShop.FB_COLLECTIBLE)) {

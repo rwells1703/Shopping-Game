@@ -1,17 +1,17 @@
-package check.out.game.maingame.fermions;
+package check.out.game.maingame.fermions.shoppers;
 
 import check.out.game.maingame.ConstShop;
 import check.out.game.maingame.nonfermions.Cargo;
+import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends Shopper {
 
-    public Player(World world, Vector2 position) {
-        super(world, position);
-    }
-
     public Cargo cargo = new Cargo(10);
+
+    public Player(NebulaShop nebula, Vector2 position) {
+        super(nebula, position);
+    }
 
     public void updateMass() {
         getBody().setLinearDamping(ConstShop.SHOPPERLINEARDAMPING + cargo.getMass() * ConstShop.MASSLINEARDAMPINGFACTOR);
