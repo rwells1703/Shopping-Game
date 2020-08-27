@@ -19,6 +19,7 @@ public class ConstShop {
         AP_SHELVING_DRAW =      0x2000,
         AP_HOTBAR_DRAW =        0x2500,
         AP_PLAYER_DRAW =        0x2600,
+        AP_RAY_CAST_DRAW =      0x2800,
         AP_DEBUG_DRAW =         0xFFFF;
 
     public static final int
@@ -28,11 +29,11 @@ public class ConstShop {
         CP_SHOPPER_SHOPPER_CRASH =      0x00_00_00_40;
 
     public static final int //Fermion set bits - use bitwise ORs to be in a set union.
-            FB_SHOPPER          =1<<0,
-            FB_TERRAIN          =1<<1,
-            FB_PROJECTILE       =1<<2,
-            FB_COLLECTIBLE      =1<<3,
-            FB_FLOORING         =1<<4;
+        FB_SHOPPER          =1<<0,
+        FB_TERRAIN          =1<<1,
+        FB_PROJECTILE       =1<<2,
+        FB_COLLECTIBLE      =1<<3,
+        FB_FLOORING         =1<<4;
 
     public static final float //Movement Constant.
         SHOPPERTORQUEFACTOR        = 3f,
@@ -50,7 +51,7 @@ public class ConstShop {
         SHELF_UNIT_SIZE = 1f;
 
     public static final float
-        OBNOXIOUS_THRUST_FACTOR_2 = SHOPPERTHRUSTFACTOR / 8f;
+        ENEMY_THRUST_FACTOR_2 = SHOPPERTHRUSTFACTOR / 8f;
 
     public static final float
         ICE_THRUST_2 =          SHOPPERTHRUSTFACTOR / 16f,
@@ -66,4 +67,8 @@ public class ConstShop {
 
     public static final int WIDTH = 8;
 //    public static final int HEIGHT = ;
+
+    public static final boolean DEBUG_DRAW_BODIES = false;
+    public static final boolean DEBUG_DRAW_ACTIVE_RAYS = false;
+    public static final boolean DEBUG_DRAW_WAYPOINT_RAYS = false;
 }

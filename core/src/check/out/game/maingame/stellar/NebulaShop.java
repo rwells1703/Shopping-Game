@@ -1,7 +1,9 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.nonfermions.RayCaster;
 import check.out.game.maingame.nonfermions.SoundEffectHandler;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -13,6 +15,9 @@ public class NebulaShop extends NebulaB2DEasyOverride {
     public SoundEffectHandler soundEffectHandler;
     public Pointer<Fermion> player;
     public Body bodyForSensors;
+    public Vector2[] waypoints;
+    public Camera camera;
+    public RayCaster rayCaster;
 
     @Override
     public void create() {
@@ -25,6 +30,8 @@ public class NebulaShop extends NebulaB2DEasyOverride {
         bodyForSensors = world.createBody(bodyDef);
 
         soundEffectHandler = new SoundEffectHandler();
+
+        rayCaster = new RayCaster(this);
     }
 
     @Override

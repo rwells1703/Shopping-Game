@@ -1,18 +1,15 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.artists.FlooringHazardsDrawer;
-import check.out.game.maingame.artists.HotbarDrawer;
-import check.out.game.maingame.artists.MapDrawer;
-import check.out.game.maingame.artists.PlayerDrawer;
+import check.out.game.maingame.artists.*;
 import check.out.game.maingame.colliders.CollectCollectibles;
 import check.out.game.maingame.colliders.ShopperShelfCrash;
 import check.out.game.maingame.colliders.ShopperShopperCrash;
 import check.out.game.maingame.effects.*;
-import check.out.game.maingame.effects.ai.ObnoxiousRamsPlayer;
+import check.out.game.maingame.effects.ai.EnemyMovementAI;
 import check.out.game.maingame.fermions.Collectible;
+import check.out.game.maingame.fermions.Enemy;
 import check.out.game.maingame.fermions.Player;
-import check.out.game.maingame.fermions.Shopper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -36,7 +33,6 @@ import java.util.Random;
 public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     private float MAP_WIDTH = 20,
             MAP_HEIGHT = 15;
-    private boolean debug = false;
 
     @Override
     protected NebulaShop getNewNebula() {
@@ -53,13 +49,13 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         MAP_HEIGHT = reader.getMapHeight();
 
         //Setup the camera.
-        Camera camera = new OrthographicCamera(((float) Gdx.graphics.getWidth() / (float) Gdx.graphics.getHeight()) * VIEWPORT_HEIGHT, VIEWPORT_HEIGHT);
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
+        nebulaImplemented.camera = new OrthographicCamera(((float) Gdx.graphics.getWidth() / (float) Gdx.graphics.getHeight()) * VIEWPORT_HEIGHT, VIEWPORT_HEIGHT);
+        nebulaImplemented.camera.position.set(nebulaImplemented.camera.viewportWidth / 2f, nebulaImplemented.camera.viewportHeight / 2f, 0);
+        nebulaImplemented.camera.update();
 
         addFermions(nebulaImplemented, reader);
-        addEffects(nebulaImplemented, camera);
-        addArtists(nebulaImplemented, camera, map);
+        addEffects(nebulaImplemented, nebulaImplemented.camera);
+        addArtists(nebulaImplemented, nebulaImplemented.camera, map);
         addColliders(nebulaImplemented);
     }
 
@@ -94,7 +90,8 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 return ConstShop.AP_SCREEN_CLEAR;
             }
         });
-        if (debug) {
+
+        if (ConstShop.DEBUG_DRAW_BODIES) {
             list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
                 @Override
                 public int getPriority() {
@@ -102,12 +99,18 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
                 }
             });
         }
+
+        if (ConstShop.DEBUG_DRAW_ACTIVE_RAYS) {
+            list.add(() -> new RayCastDrawer(camera));
+        }
+
         list.add(() -> new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "floor") {
             @Override
             public int getPriority() {
                 return ConstShop.AP_FLOOR_DRAW;
             }
         });
+
         list.add(() -> new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "shelves") {
             @Override
             public int getPriority() {
@@ -151,13 +154,14 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
         //###End add collectibles.
 
         reader.readInShelving();
+        nebulaImplemented.waypoints = reader.readInWaypoints();
 
         //###Begin add obnoxious.
         EffectList effectList = nebulaImplemented.effects();
         for (int i = 1; i <= 5; i++) {
             int finalI = i;
-            effectList.add(() -> new ObnoxiousRamsPlayer(
-                    list.addWithPointer(() -> new Shopper(nebulaImplemented.world(), new Vector2(finalI * 4, finalI * 4)))
+            effectList.add(() -> new EnemyMovementAI(
+                    list.addWithPointer(() -> new Enemy(nebulaImplemented.world(), new Vector2(finalI * 4, finalI * 4)))
             ));
         }
         //###End add obnoxious.

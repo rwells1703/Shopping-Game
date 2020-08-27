@@ -1,8 +1,11 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.fermions.TerrainStatic;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 
 import static check.out.game.maingame.ConstShop.SHELF_UNIT_SIZE;
 
@@ -135,5 +138,20 @@ public class MapReader {
 
     private void addShelf(int x, int y, int width, int height) {
         nebula.fermions().add(() -> new TerrainStatic(nebula.world(), x, y, width, height));
+    }
+
+    public Vector2[] readInWaypoints() {
+        map.getProperties();
+
+        MapObjects waypointObjects = map.getLayers().get("waypoints").getObjects();
+
+        Vector2[] waypoints = new Vector2[waypointObjects.getCount()];
+
+        for (int i = 0; i < waypointObjects.getCount(); i++) {
+            MapProperties properties = waypointObjects.get(i).getProperties();
+            waypoints[i] = new Vector2((float) properties.get("x") / (int) map.getProperties().get("tilewidth"), (float) properties.get("y") / (int) map.getProperties().get("tileheight"));
+        }
+
+        return waypoints;
     }
 }

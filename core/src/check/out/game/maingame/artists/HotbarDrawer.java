@@ -13,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.sun.org.apache.bcel.internal.Const;
 import fernebon.core.base.Nebula;
 import fernebon.core.base.artist.Artist;
 import fernebon.core.util.LifeCycleImplementation;
@@ -42,17 +40,17 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        final int tileDimension = Gdx.graphics.getWidth()/ ConstShop.WIDTH;
+        final int tileDimension = Gdx.graphics.getWidth() / ConstShop.WIDTH;
 
         hotbarLabels = new Group();
         System.out.println((hotbarLabels.getChildren().size));
 
-        for(int i=0; i<ConstShop.HOTBAR_MAX; i++){
+        for (int i = 0; i < ConstShop.HOTBAR_MAX; i++) {
             Label label = new Label("", skin);
             label.setFontScale(1.5f);
             label.setWidth(10f);
             label.setHeight(10f);
-            label.setPosition((float)(i+1.6)*tileDimension, (float)(0.9*tileDimension));
+            label.setPosition((float) (i + 1.6) * tileDimension, (float) (0.9 * tileDimension));
             hotbarLabels.addActor(label);
         }
         stage.addActor(hotbarLabels);
@@ -102,9 +100,9 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
 
         batch.end();
 
-        for(int i=0; i<ConstShop.HOTBAR_MAX; i++){
+        for (int i = 0; i < ConstShop.HOTBAR_MAX; i++) {
             int quantity = player.cargo.quantity.get(i, 0);
-            ((Label)hotbarLabels.getChild(i)).setText(quantity==0?"":Integer.toString(quantity));
+            ((Label) hotbarLabels.getChild(i)).setText(quantity == 0 ? "" : Integer.toString(quantity));
         }
 
         stage.act(deltaTime);
