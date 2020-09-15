@@ -1,14 +1,13 @@
 package check.out.game.maingame.fermions.flooring;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
 public class BeanRing extends Flooring {
-    public BeanRing(NebulaShop nebula, Vector2 position) {
-        super(nebula, position);
+    public BeanRing(Vector2 position) {
+        super(position);
     }
 
     @Override

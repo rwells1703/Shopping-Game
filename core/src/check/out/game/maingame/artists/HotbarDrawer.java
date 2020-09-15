@@ -1,8 +1,8 @@
 package check.out.game.maingame.artists;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.fermions.Projectile;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -77,7 +77,7 @@ public class HotbarDrawer extends LifeCycleImplementation implements Artist {
         batch.setProjectionMatrix(camera.projection);
         batch.begin();
 
-        Player player = ((NebulaShop) nebula).player.getPointeeCast();
+        Player player = ((NebulaShop) nebula).player;
 
         int index = 0;
         for (int i = 0; i < ConstShop.HOTBAR_MAX; i++) {

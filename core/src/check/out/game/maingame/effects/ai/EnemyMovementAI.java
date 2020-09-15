@@ -6,9 +6,7 @@ import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.math.Vector2;
 import fernebon.core.base.Nebula;
-import fernebon.core.base.Pointer;
 import fernebon.core.base.effect.Effect;
-import fernebon.core.base.fermion.Fermion;
 import fernebon.core.util.LifeCycleImplementation;
 
 import java.util.ArrayList;
@@ -17,10 +15,10 @@ import java.util.ArrayList;
  * AI to try to make a given shopper try and ram into the player.
  */
 public class EnemyMovementAI extends LifeCycleImplementation implements Effect {
-    private Pointer<Fermion> pointer;
+    private Enemy enemy;
 
-    public EnemyMovementAI(Pointer<Fermion> pointer) {
-        this.pointer = pointer;
+    public EnemyMovementAI(Enemy enemy) {
+        this.enemy = enemy;
     }
 
     @Override
@@ -31,9 +29,8 @@ public class EnemyMovementAI extends LifeCycleImplementation implements Effect {
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
         //Set the player's desired force based on the ws keys - this method doesn't actually apply said force.
-        Enemy enemy = pointer.getPointeeCast();
-        if (enemy == null) {//Just in case - if the enemy is no more, dispose of this effect.
-            nebula.effects().remove(this);
+        if (enemy.getCurrentLifeCycleState().isDeleted()) {//Just in case - if the enemy is no more, dispose of this effect.
+            nebula.effects().delete(this);
             return;
         }
 
@@ -44,7 +41,7 @@ public class EnemyMovementAI extends LifeCycleImplementation implements Effect {
             }
         }
 
-        Player player = ((NebulaShop) nebula).player.getPointeeCast();
+        Player player = ((NebulaShop) nebula).player;
         Vector2[] playerVertices = ((NebulaShop) nebula).rayCaster.getPolygonShapedBodyVertices(player.getBody());
 
         if (((NebulaShop) nebula).rayCaster.canSee(enemy.getBody().getPosition(), playerVertices)) {
@@ -87,7 +84,6 @@ public class EnemyMovementAI extends LifeCycleImplementation implements Effect {
     }
 
     private boolean reachedWaypoint(Vector2 waypoint) {
-        Enemy enemy = pointer.getPointeeCast();
         return waypoint.dst(enemy.getBody().getPosition()) < 1;
     }
 }

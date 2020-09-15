@@ -19,7 +19,7 @@ public class KeyboardMovesPlayer extends LifeCycleImplementation implements Effe
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
         //Set the player's desired force based on the ws keys - this method doesn't actually apply said force.
-        Shopper player = ((NebulaShop) nebula).player.getPointeeCast();
+        Shopper player = ((NebulaShop) nebula).player;
         Vector2 desiredForce = player.controller.desiredForce;
         float angle = player.getBody().getAngle();
         boolean forward = Gdx.input.isKeyPressed(Input.Keys.W);

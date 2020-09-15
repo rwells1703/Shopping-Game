@@ -13,9 +13,11 @@ public class Projectile extends BodiedFermionPartial {
     public int type;
     public boolean transformed; //determines which texture to use
 
-    public Projectile(World world, Vector2 position, Vector2 velocity, int type) {
+    public Projectile(int type) {
         this.type = type;
+    }
 
+    public void init(World world, Vector2 position, Vector2 velocity) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);

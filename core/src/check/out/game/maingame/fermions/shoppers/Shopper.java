@@ -14,7 +14,7 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
     public Controller controller = new Controller();//The AI specify what they WOULD LIKE to do by editing this. Whether the effects listen is not guaranteed (e.g. for a trolley with a dodgy wheel).
     public Person person;
 
-    public Shopper(NebulaShop nebula, Vector2 position) {
+    public void init(NebulaShop nebula, Vector2 position) {
         BodyDef bodyDef = new BodyDef();//Define body properties;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);
@@ -34,14 +34,16 @@ public class Shopper extends BodiedFermionPartial {//BodiedFermionPartial has a 
 
         shape.dispose();
 
-        person = new Person(nebula, position);
-        nebula.fermions().addWithPointer(() -> person);
-
-        DistanceJointDef arm = new DistanceJointDef();
-        arm.initialize(body, person.getBody(), new Vector2(body.getPosition()).add(new Vector2(0f, -0.475f)), new Vector2(person.getBody().getPosition()).add(new Vector2(0f, person.radius)));
-        arm.length = 0.07f;
-        arm.collideConnected = true;
-        nebula.world().createJoint(arm);
+        person = new Person();
+        nebula.fermions().add(person, it -> {
+            it.init(nebula, position);
+            //The following is also part of the Modifier<Person>'s invoke method, as it must only execute once the Box2D bodies of the person have been made, which must only be made when the person fermion is actually added to the fermion list.
+            DistanceJointDef arm = new DistanceJointDef();
+            arm.initialize(body, it.getBody(), new Vector2(body.getPosition()).add(new Vector2(0f, -0.475f)), new Vector2(it.getBody().getPosition()).add(new Vector2(0f, it.radius)));
+            arm.length = 0.07f;
+            arm.collideConnected = true;
+            nebula.world().createJoint(arm);
+        });
     }
 
     @Override

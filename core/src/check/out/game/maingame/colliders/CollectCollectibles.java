@@ -39,7 +39,7 @@ public class CollectCollectibles extends LifeCycleImplementation implements Coll
                 Projectile.SELECTED_TYPE = collectible.type;
             }
             player.addOneOf(collectible.type);
-            nebula.fermions().remove(collectible);
+            nebula.fermions().delete(collectible);
             ((NebulaShop) nebula).soundEffectHandler.playSound("ding");
         } catch (IllegalArgumentException e) {
         }

@@ -1,8 +1,8 @@
 package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.fermions.Projectile;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.landingactions.LandingAction;
 import check.out.game.maingame.landingactions.LandingBeans;
 import check.out.game.maingame.landingactions.LandingExplosive;
@@ -14,9 +14,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import fernebon.core.base.Nebula;
-import fernebon.core.base.Pointer;
 import fernebon.core.base.effect.Effect;
-import fernebon.core.base.fermion.Fermion;
 import fernebon.core.util.LifeCycleImplementation;
 
 public class LaunchProjectile extends LifeCycleImplementation implements Effect {
@@ -30,7 +28,7 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
-        Player player = ((NebulaShop) nebula).player.getPointeeCast();
+        Player player = ((NebulaShop) nebula).player;
 
         if (player.cargo.mass == 0)
             Projectile.SELECTED_TYPE = 0; //if no items in inventory, then scroll wheel doesn't have any effect
@@ -66,12 +64,10 @@ public class LaunchProjectile extends LifeCycleImplementation implements Effect 
 
     private void launchProjectile(NebulaShop nebulaShop, Vector2 projectilePos, Vector2 projectileVel, int type) {
         if (hasAction(type)) {//This is for if the projectile has a landing action.
-            Pointer<Fermion> pointer = nebulaShop.fermions().addWithPointer(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
-            nebulaShop.effects().add(
-                    () -> new ProjectileCausesActionOnLanding(pointer, getAction(type))
-            );
+            Projectile projectile = nebulaShop.fermions().add(new Projectile(type), it -> it.init(nebulaShop.world(), projectilePos, projectileVel));
+            nebulaShop.effects().add(new ProjectileCausesActionOnLanding(projectile, getAction(type)), null);
         } else {//This is for if the projectile has no landing action.
-            nebulaShop.fermions().add(() -> new Projectile(nebulaShop.world(), projectilePos, projectileVel, type));
+            nebulaShop.fermions().add(new Projectile(type), it -> it.init(nebulaShop.world(), projectilePos, projectileVel));
         }
     }
 

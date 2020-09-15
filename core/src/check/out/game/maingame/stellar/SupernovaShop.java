@@ -56,86 +56,95 @@ public class SupernovaShop extends SupernovaPartial<NebulaShop> {
     protected void addEffects(NebulaShop nebulaImplemented, Camera camera) {
         EffectList list = nebulaImplemented.effects();
 
-        list.add(KeyboardMovesPlayer::new);
-        list.add(ControllerForcesOnShoppers::new);
-        list.add(LaunchProjectile::new);
-        list.add(Gravity::new);
-        list.add(() -> new StepperOfWorld() {
+        list.add(new KeyboardMovesPlayer(), null);
+        list.add(new ControllerForcesOnShoppers(), null);
+        list.add(new LaunchProjectile(), null);
+        list.add(new Gravity(), null);
+        list.add(new StepperOfWorld() {
             @Override
             public int getPriority() {
                 return ConstShop.EP_PHYSICS_STEP;
             }
-        });
-        list.add(() -> new Spotlight(camera, MAP_WIDTH, MAP_HEIGHT));
-        list.add(() -> new DrawCaller() {
+        }, null);
+        list.add(new Spotlight(camera, MAP_WIDTH, MAP_HEIGHT), null);
+        list.add(new DrawCaller() {
             @Override
             public int getPriority() {
                 return ConstShop.EP_DRAW;
             }
-        });
+        }, null);
     }
 
     protected void addArtists(NebulaShop nebulaImplemented, Camera camera, TiledMap map) {
         ArtistList list = nebulaImplemented.artists();
 
-        list.add(() -> new ScreenClearer() {
+        list.add(new ScreenClearer() {
             @Override
             public int getPriority() {
                 return ConstShop.AP_SCREEN_CLEAR;
             }
-        });
+        }, null);
 
         if (ConstShop.DEBUG_DRAW_BODIES) {
-            list.add(() -> new DebugRenderer(camera, nebulaImplemented.world()) {
+            list.add(new DebugRenderer(camera, nebulaImplemented.world()) {
                 @Override
                 public int getPriority() {
                     return ConstShop.AP_DEBUG_DRAW;
                 }
-            });
+            }, null);
         }
 
         if (ConstShop.DEBUG_DRAW_ACTIVE_RAYS) {
-            list.add(() -> new RayCastDrawer(camera));
+            list.add(new RayCastDrawer(camera), null);
         }
 
-        list.add(() -> new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "floor") {
+        list.add(new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "floor") {
             @Override
             public int getPriority() {
                 return ConstShop.AP_FLOOR_DRAW;
             }
-        });
+        }, null);
 
-        list.add(() -> new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "shelves") {
+        list.add(new MapDrawer((OrthographicCamera) camera, map, ConstShop.SHELF_UNIT_SIZE / 128f, "shelves") {
             @Override
             public int getPriority() {
                 return ConstShop.AP_SHELVING_DRAW;
             }
-        });
+        }, null);
 
-        list.add(() -> new PlayerDrawer(camera));
-        list.add(() -> new HotbarDrawer(camera));
-        list.add(() -> new FlooringHazardsDrawer(camera));
+        list.add(new PlayerDrawer(camera), null);
+        list.add(new HotbarDrawer(camera), null);
+        list.add(new FlooringHazardsDrawer(camera), null);
     }
 
     protected void addColliders(NebulaShop nebulaImplemented) {
         ColliderList list = nebulaImplemented.colliders();
 
-        list.add(CollectCollectibles::new);
-        list.add(ShopperShopperCrash::new);
-        list.add(ShopperShelfCrash::new);
-        list.add(() -> new PrehensileCollisionManager() {
+        list.add(new CollectCollectibles(), null);
+        list.add(new ShopperShopperCrash(), null);
+        list.add(new ShopperShelfCrash(), null);
+        list.add(new PrehensileCollisionManager() {
             @Override
             public int getPriority() {
                 return ConstShop.CP_ON_FLOORING;
             }
-        });
+        }, null);
     }
 
     protected void addFermions(NebulaShop nebulaImplemented, MapReader reader) {
         FermionList list = nebulaImplemented.fermions();
 
+        /*
+        The add method returns the added fermion particle (here the player), already of type Q (here Player).
+        The fermion passed in is the player object. It must not be setup with any side-effects
+            E.g. cargo is allowed to be created, as (I think) it effectively has no side-effects - I think it is effectively just data stored in the fermion.
+            However, the Box2D body should not be initialised as it has side effects (a body appears in the world, which may be invisible if the fermion isn't added, and I think can cause issues if added at the wrong time (like during a physics step)).
+        Any side-effect initialisation should be done by the Modifier<Q> init object/function.
+            This has an invoke method which acts on (is called on) the player just before it is added to the list.
+            In this case, that invoke method calls the player init method, passing in what is necessary to initialise Box2D stuff.
+        */
         nebulaImplemented.player = list
-                .addWithPointer(() -> new Player(nebulaImplemented, new Vector2(2, 2)));
+                .add(new Player(), it -> it.init(nebulaImplemented, new Vector2(2, 2)));
 
         reader.readInShelving();
         reader.readInObjects();

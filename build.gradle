@@ -56,7 +56,7 @@ project(":core") {
 
 
     dependencies {
-        implementation files("../lib/fernebon-1.0.jar")
+        implementation files("../lib/fernebon-2.0.jar")
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         

@@ -159,7 +159,7 @@ public class MapReader {
     }
 
     private void addShelf(int x, int y, int width, int height) {
-        nebula.fermions().add(() -> new TerrainStatic(nebula.world(), x, y, width, height));
+        nebula.fermions().add(new TerrainStatic(), it -> it.init(nebula.world(), x, y, width, height));
     }
 
     public void addWaypoints(MapObjects waypointObjects) {
@@ -177,9 +177,9 @@ public class MapReader {
         for (MapObject shopper : shoppers) {
             MapProperties properties = shopper.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
-            effectList.add(() -> new EnemyMovementAI(
-                    fermionlist.addWithPointer(() -> new Enemy(nebula, pixelToCoord(position)))
-            ));
+            effectList.add(new EnemyMovementAI(
+                    fermionlist.add(new Enemy(), it -> it.init(nebula, pixelToCoord(position)))
+            ), null);
         }
     }
 
@@ -189,7 +189,7 @@ public class MapReader {
             int type = rnd.nextInt(ConstShop.NUM_COLLECTIBLE_TYPES);
             MapProperties properties = collectible.getProperties();
             Vector2 position = new Vector2(Float.parseFloat(properties.get("x").toString()), Float.parseFloat(properties.get("y").toString()));
-            fermionlist.add(() -> new Collectible(nebula, pixelToCoord(position), type));
+            fermionlist.add(new Collectible(pixelToCoord(position), type), it -> it.init(nebula));
         }
     }
 

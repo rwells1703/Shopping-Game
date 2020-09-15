@@ -41,7 +41,7 @@ public class FlooringHazardsDrawer extends LifeCycleImplementation implements Ar
         batch.begin();
 
         for (Flooring flooring : nebula.fermions().<Flooring>particles(ConstShop.FB_FLOORING)) {
-            Vector2 position = flooring.position;
+            Vector2 position = flooring.getPosition();
             if (flooring instanceof IceRing) {//Todo less "magic numbers" in srcX, srcWidth, etc.
                 batch.draw(iceRingTexture, position.x - ICE_RING_RADIUS, position.y - ICE_RING_RADIUS, ICE_RING_RADIUS * 2, ICE_RING_RADIUS * 2, 0, 0, 128, 128, false, false);
             } else if (flooring instanceof BeanRing) {

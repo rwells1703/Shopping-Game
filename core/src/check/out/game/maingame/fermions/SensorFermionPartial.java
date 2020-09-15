@@ -14,9 +14,11 @@ public abstract class SensorFermionPartial extends LifeCycleImplementation imple
     protected Fixture sensor;
     private Vector2 position;
 
-    public SensorFermionPartial(NebulaShop nebula, Vector2 position) {
+    public SensorFermionPartial(Vector2 position) {
         this.position = position;
+    }
 
+    public void init(NebulaShop nebula) {
         Shape shape = getShape(position);
 
         FixtureDef fixtureDef = new FixtureDef();

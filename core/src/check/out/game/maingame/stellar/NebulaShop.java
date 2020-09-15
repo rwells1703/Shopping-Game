@@ -1,6 +1,7 @@
 package check.out.game.maingame.stellar;
 
 import check.out.game.maingame.ConstShop;
+import check.out.game.maingame.fermions.shoppers.Player;
 import check.out.game.maingame.nonfermions.RayCaster;
 import check.out.game.maingame.nonfermions.SoundEffectHandler;
 import com.badlogic.gdx.graphics.Camera;
@@ -8,13 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import fernebon.b2d.impl.NebulaB2DEasyOverride;
-import fernebon.core.base.Pointer;
-import fernebon.core.base.fermion.Fermion;
 
 public class NebulaShop extends NebulaB2DEasyOverride {
     public Camera camera;
     public SoundEffectHandler soundEffectHandler;
-    public Pointer<Fermion> player;
+    public Player player;
     public Body bodyForSensors;
     public Vector2[] waypoints;
     public RayCaster rayCaster;

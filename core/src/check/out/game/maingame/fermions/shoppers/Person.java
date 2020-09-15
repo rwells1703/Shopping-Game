@@ -11,7 +11,7 @@ import fernebon.b2d.util.fermions.BodiedFermionPartial;
 public class Person extends BodiedFermionPartial {
     public float radius = 0.25f;
 
-    public Person(NebulaShop nebula, Vector2 position) {
+    public void init(NebulaShop nebula, Vector2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(new Vector2(position).sub(0, 1));

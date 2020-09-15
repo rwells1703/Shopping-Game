@@ -1,8 +1,7 @@
 package check.out.game.maingame.landingactions;
 
+import check.out.game.maingame.fermions.Projectile;
 import fernebon.core.base.Nebula;
-import fernebon.core.base.Pointer;
-import fernebon.core.base.fermion.Fermion;
 
 /**
  * Action to take place when given projectile lands.
@@ -13,5 +12,5 @@ public interface LandingAction {
      *
      * @return True if should remove this ProjectileCausesActionOnLanding Effect.
      */
-    boolean invoke(Nebula nebula, Pointer<Fermion> projectilePointer);
+    boolean invoke(Nebula nebula, Projectile projectilePointer);
 }

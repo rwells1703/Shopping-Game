@@ -1,7 +1,6 @@
 package check.out.game.maingame.effects;
 
 import check.out.game.maingame.ConstShop;
-import check.out.game.maingame.fermions.shoppers.Shopper;
 import check.out.game.maingame.stellar.NebulaShop;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
@@ -33,7 +32,7 @@ public class Spotlight extends LifeCycleImplementation implements Effect {
 
     @Override
     public void onUpdate(Nebula nebula, float deltaTime) {
-        Vector2 star = ((NebulaShop) nebula).player.<Shopper>getPointeeCast().getBody().getPosition();
+        Vector2 star = ((NebulaShop) nebula).player.getBody().getPosition();
         float x = star.x, y = star.y;
         if (x < X_MIN) x = X_MIN;
         else if (x > X_MAX) x = X_MAX;
